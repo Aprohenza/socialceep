@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 
-import com.formbean.dao.MessageDAO;
+import com.formbean.dao.MessageDao;
 import com.formbean.dao.UserDao;
 import com.formbean.entity.ConversationEntity;
 import com.formbean.entity.ConversationsMessageEntity;
@@ -286,7 +286,7 @@ public class MessagingController {
 			
 		}
 		
-		Runnable createMessage = new MessageDAO(uSession, MessageDAO.ACTION_CREATE_NEW_MESSAGE, mC);		
+		Runnable createMessage = new MessageDao(uSession, MessageDao.ACTION_CREATE_NEW_MESSAGE, mC);		
 		new Thread(createMessage).start();
 		
 		

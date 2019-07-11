@@ -19,7 +19,7 @@ import com.formbean.session.MessageConversation;
 import com.formbean.session.SessionManager;
 import com.formbean.session.UserSession;
 
-public class MessageDAO implements Runnable {
+public class MessageDao implements Runnable {
 	
 	public static final String ACTION_CREATE_NEW_MESSAGE = "create";
 	private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -32,10 +32,10 @@ public class MessageDAO implements Runnable {
 	
 	private UserSession uSession;
 	
-	public MessageDAO() {
+	public MessageDao() {
 	}
 	
-	public MessageDAO(UserSession uSession, String action, MessageConversation mC) {
+	public MessageDao(UserSession uSession, String action, MessageConversation mC) {
 		this.action = action;
 		this.mC = mC;
 		this.uSession = uSession;

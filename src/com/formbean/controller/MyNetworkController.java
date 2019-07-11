@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.formbean.dao.MessageDAO;
+import com.formbean.dao.MessageDao;
 import com.formbean.dao.UserDao;
 import com.formbean.dto.FriendRequestModel;
 import com.formbean.entity.FriendEntity;
