@@ -58,12 +58,14 @@ public class SessionProfileUpdate {
 		try {			
 			
 			if (photoProfile != null) {
+				System.out.println("Cambiando photo profile a: " + timeCurrent);
 				userProfileDataChange.setUserProfilePhotoProfile(Long.toString(timeCurrent));
 				this.saveImage(photoProfile, timeCurrent, req);
 				this.updatePhotoProfile(Long.toString(timeCurrent));				
 			}
 			
-			if (photoCover != null) {				
+			if (photoCover != null) {
+				System.out.println("Cambiando photo cover a: " + timeCurrent);
 				userProfileDataChange.setUserProfilePhotoCover(Long.toString(timeCurrent));
 				this.saveImage(photoCover, timeCurrent, req);
 				this.updatePhotoProfileCover(Long.toString(timeCurrent));				
@@ -103,7 +105,7 @@ public class SessionProfileUpdate {
 
 	// salvar imagenes
 	private void saveImage(MultipartFile file, Long timeCurrent, HttpServletRequest request) throws Exception {
-
+		System.out.println("INIT SAVE IMAGE EN SESSION PROFILE UPDATE");
 		InputStream fileContent;
 		File targetFile;
 
@@ -121,6 +123,8 @@ public class SessionProfileUpdate {
 		Files.copy(fileContent, targetFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
 
 		IOUtils.closeQuietly(fileContent);
+		
+		System.out.println("END SAVE IMAGE EN SESSION PROFILE UPDATE");
 
 	}
 	
