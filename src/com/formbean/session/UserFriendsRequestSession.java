@@ -1,22 +1,30 @@
 package com.formbean.session;
 
-import java.util.List;
+import com.formbean.dto.UserProfileDto;
 
-import org.springframework.stereotype.Component;
-
-@Component
-public class UserFriendsRequestSession {
+public class UserFriendsRequestSession extends UserProfileDto{
 	
-	private List<UserFriendsRequest> userFriendsRequest;
-
-	public List<UserFriendsRequest> getUserFriendsRequest() {
-		return userFriendsRequest;
+	private Long friendRequestId;
+	
+	
+	public UserFriendsRequestSession() {
+		
 	}
 
-	public void setUserFriendsRequest(List<UserFriendsRequest> userFriendsRequest) {
-		this.userFriendsRequest = userFriendsRequest;
+	public UserFriendsRequestSession(String userProfileId, String userProfileName, String userProfileLastName,
+			String userProfileRole, String userProfilePhotoProfile, String userProfilePhotoCover,
+			String userProfileNationality) {
+		super(userProfileId, userProfileName, userProfileLastName, userProfileRole, userProfilePhotoProfile,
+				userProfilePhotoCover, userProfileNationality, null);
+		
 	}
-	
-	
+
+	public Long getFriendRequestId() {
+		return friendRequestId;
+	}
+
+	public void setFriendRequestId(Long friendRequestId) {
+		this.friendRequestId = friendRequestId;
+	}
 
 }

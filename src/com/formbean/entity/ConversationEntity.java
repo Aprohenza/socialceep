@@ -27,8 +27,12 @@ public class ConversationEntity implements Serializable {
 	private String conversationCreated;
 
 	//bi-directional many-to-many association to UserEntity
-	@ManyToMany(mappedBy="conversations")
+	@ManyToMany(cascade = {CascadeType.ALL})
 	@LazyCollection(LazyCollectionOption.FALSE)
+	@JoinTable(name = "USERS_CONVERSATIONS",
+		joinColumns = @JoinColumn(name = "conversation_thread", referencedColumnName = "conversation_thread"),
+		inverseJoinColumns = @JoinColumn(name = "user_id", referencedColumnName = "user_id")		
+	)
 	private List<UserEntity> users;
 
 	//bi-directional many-to-one association to ConversationsMessageEntity

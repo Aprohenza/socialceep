@@ -10,9 +10,9 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.formbean.entity.LoginEntity;
+
+
 import com.formbean.session.SessionManager;
 import com.formbean.session.UserSession;
 
@@ -67,10 +67,28 @@ public class AccesControl implements Filter {
 		}
 		
 		if(req.getServletPath().startsWith("/images")) {
-			//System.out.println("pasando");
 			chain.doFilter(request, response);
 			return;
 		}
+		
+		if(req.getServletPath().startsWith("/onboarding")) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
+		if(req.getServletPath().startsWith("/onboarding/your-formative-cycle")) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
+		if(req.getServletPath().startsWith("/onboarding/your-photo-profile")) {
+			chain.doFilter(request, response);
+			return;
+		}
+		
+		
+		
+		
 		
 		
 		if (req.getServletPath().equals("/") || req.getServletPath().equals("/userform") || req.getServletPath().equals("/login")) {
@@ -87,7 +105,7 @@ public class AccesControl implements Filter {
 		System.out.println("User session: " + uSession);
 		
 		if(uSession == null) {
-			res.sendRedirect("login");
+			res.sendRedirect(req.getContextPath() + "/login");
 			return;
 		}
 

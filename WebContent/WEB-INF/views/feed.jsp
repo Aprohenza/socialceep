@@ -45,7 +45,7 @@
 						class="d-flex justify-content-center flex-column align-items-center">
 						<img class="rounded-circle mt-4" alt="Aldo Prohenza" height="64"
 							width="64"
-							src="${pageContext.request.contextPath}/images/${uSession.userProfilePhoto}">
+							src="${pageContext.request.contextPath}/images/${uSession.userProfilePhotoProfile}">
 						<span class="text-center" style="font-weight: 600;">¡Te
 							damos la bienvenida, ${uSession.userProfileName}!</span> <span><a
 							href="${pageContext.request.contextPath}/profile/${uSession.userProfileId}/">Actualiza
@@ -132,11 +132,9 @@
 </body>
 <script src="${pageContext.request.contextPath}/assets/js/navbar.js"></script>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 
-						//new post
+						//open new post box
 						$('#new-post').click(function() {
 							$('#global').addClass('d-flex');
 							//$('#global').load('${pageContext.request.contextPath}/views/tiles/newpost.jsp');
@@ -274,7 +272,7 @@
 							$('.comments-container .comments', $(this).parents()[2]).html(function(){
 								var html = "";
 								
-								JSON.parse(localStorage.posts).forEach(function(post){
+								JSON.parse(sessionStorage.posts).forEach(function(post){
 									
 									if(post.postId == postId){
 										console.log("match");
@@ -353,19 +351,31 @@
 	
 					
 					
-	if(localStorage.posts == null){
-			console.log("REALIZANDO LLAMADA POR AJAX A LOS POST!!!");
-			$.ajax({
-				type: 'GET',
-				url: '${pageContext.request.contextPath}/post/load',
-				success: function(respuesta) {
-					
-					
-				},
-				error: function(jqXHR, textStatus, errorThrown) {
-			       console.log(jqXHR.status, textStatus, errorThrown);
-			   }
-			})
+	if(sessionStorage.posts == null){
+			console.log("NO HAY POST EN EL CLIENTE. PREPARANDO PETICION AL SERVER...");
+			 if(sessionStorage.sessionFriends != null){
+				console.log("HAY FRIENDS EN EL CLIENTE. SOLICITANDO SOLO LOS FEED POST...");
+				$.ajax({
+					type: 'GET',
+					url: '${pageContext.request.contextPath}/post-feed/load',
+					success: function(respuesta) {},
+					error: function(jqXHR, textStatus, errorThrown) {
+				       console.log(jqXHR.status, textStatus, errorThrown);
+				   }
+				})
+				
+			} else{
+				console.log("NO HAY FRIENDS EN EL CLIENTE. SOLICITANDO CARGA COMPLETA...");
+				$.ajax({
+					type: 'GET',
+					url: '${pageContext.request.contextPath}/friends-session/load',
+					success: function(respuesta) {},
+					error: function(jqXHR, textStatus, errorThrown) {
+				       console.log(jqXHR.status, textStatus, errorThrown);
+				   }
+				})				
+			}  
+			 
 		}else{
 			console.log("RENDER POST");
 			renderizePost();
@@ -378,24 +388,27 @@
 		$('#new-post').removeClass('d-none');
 		$('#posts-container').removeClass('d-none');
 		
-		var posts = JSON.parse(localStorage.posts);
+		var posts = JSON.parse(sessionStorage.posts);
 		
-		console.log(posts);
+		//console.log(posts);
 		
-		posts.forEach(function(post) {
-			if (post.postAttachment != null) {
-				if (post.postAttachment.attachmentPath == 'files') {
-					extension = post.postAttachment.attachmentName.split('.').pop() + '.svg';
-					$('#posts-container').append('<jsp:include page="../views/tiles/post_item_with_files.jsp" />');
+		if(posts.length != 0){
+			posts.forEach(function(post) {
+				if (post.postAttachment != null) {
+					if (post.postAttachment.attachmentPath == 'files') {
+						extension = post.postAttachment.attachmentName.split('.').pop() + '.svg';
+						$('#posts-container').append('<jsp:include page="../views/tiles/post_item_with_files.jsp" />');
+					} else {
+						$('#posts-container').append('<jsp:include page="../views/tiles/post_item.jsp" />');
+					}
 				} else {
-					$('#posts-container').append('<jsp:include page="../views/tiles/post_item.jsp" />');
+					$('#posts-container').append('<jsp:include page="../views/tiles/post_item_no_attachment.jsp" />');
 				}
-			} else {
-				$('#posts-container').append('<jsp:include page="../views/tiles/post_item_no_attachment.jsp" />');
-			}
 
-		})
-		console.log("FINAAAAAAAAAAAAL");
+			})
+		}else{
+			$('#posts-container').append('<jsp:include page="../views/tiles/post_welcome.jsp" />');
+		}
 	}
 	
 	function addNewPost(post){
@@ -415,7 +428,6 @@
 	
 	
 	$('.give-like').click(function(){
-		//alert("like");
 		$(this).addClass("text-primary");
 		var target_post = $(this).attr('post');
 		var count;
@@ -427,14 +439,14 @@
 			success: function(respuesta) {
 				console.log('like');
 				//update like in local storage
-				var posts = JSON.parse(localStorage.posts);
+				var posts = JSON.parse(sessionStorage.posts);
 				posts.forEach(function(post){
 					if(post.postId == target_post){
 						//console.log("true");						
 						count = post.postLike;
 						count = count + 1;
 						post.postLike = count;
-						localStorage.setItem("posts", JSON.stringify(posts)); 
+						sessionStorage.setItem("posts", JSON.stringify(posts)); 
 					}
 				})
 				

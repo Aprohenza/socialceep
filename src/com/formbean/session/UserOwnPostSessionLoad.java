@@ -11,11 +11,11 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Component;
 
 import com.formbean.controller.MyWebScket;
-import com.formbean.dao.UserDAO;
+import com.formbean.dao.UserDao;
 import com.formbean.dto.AttachmentDto;
 import com.formbean.dto.CommentPostDto;
 import com.formbean.entity.AttachmentEntity;
@@ -23,7 +23,7 @@ import com.formbean.entity.PostCommentEntity;
 import com.formbean.entity.PostEntity;
 import com.formbean.entity.UserEntity;
 
-@Component
+
 public class UserOwnPostSessionLoad implements Runnable {
 	
 	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
@@ -49,8 +49,21 @@ public class UserOwnPostSessionLoad implements Runnable {
 		
 		System.out.println("uSession en post load: " + uSession);
 		
-		TypedQuery<PostEntity> queryPostEntity = entitymanager.createNamedQuery("PostEntity.findOwnPostSession", PostEntity.class);
-		queryPostEntity.setParameter("postAuthor", entitymanager.find(UserEntity.class, uSession.getUserProfileId()));
+		//TypedQuery<PostEntity> queryPostEntity = entitymanager.createNamedQuery("PostEntity.findOwnPostSession", PostEntity.class);
+		
+		//queryPostEntity.setParameter("postAuthor", entitymanager.find(UserEntity.class, uSession.getUserProfileId()));
+		
+		TypedQuery<PostEntity> queryPostEntity = entitymanager.createNamedQuery("PostEntity.findFeedPostSession", PostEntity.class);
+		queryPostEntity.setParameter("uSession", entitymanager.find(UserEntity.class, uSession.getUserProfileId()));
+		
+		List<UserEntity> listUserEntityFriendsSession = new ArrayList<UserEntity>();
+		
+		for(UserFriendsSession uFs: uSession.getUserFriendsSession()) {
+			UserEntity uE = UserDao.getUserById(uFs.getUserProfileId());
+			listUserEntityFriendsSession.add(uE);
+		}
+		
+		queryPostEntity.setParameter("friendsSession", listUserEntityFriendsSession);
 		
 		postEntityList = queryPostEntity.getResultList();
 		
@@ -111,8 +124,9 @@ public class UserOwnPostSessionLoad implements Runnable {
 					}
 
 				} catch (Exception e) {
-
+					e.printStackTrace();
 				}
+				
 
 			}
 

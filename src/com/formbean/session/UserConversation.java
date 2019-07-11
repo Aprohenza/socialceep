@@ -6,36 +6,18 @@ public class UserConversation {
 
 	private String conversationThread;
 	
+	private String conversationTitle;
+
 	private List<MessageConversation> messageConversation;
 	
 	private List<ParticipantConversation> participantsConversation;
-
-	
-
-	/*
-	 * private String nameOtherUser;
-	 * 
-	 * private String previewLastMessageOtherUser;
-	 * 
-	 * private String dateLastMessageOtherUser;
-	 */
 	
 	private boolean multiple;
-	
 	
 
 	public UserConversation() {
 		
-	}
-
-	/*
-	 * public UserConversation(String conversationThread, String nameOtherUser,
-	 * String previewLastMessageOtherUser, String dateLastMessageOtherUser) {
-	 * super(); this.conversationThread = conversationThread; //this.nameOtherUser =
-	 * nameOtherUser; //this.previewLastMessageOtherUser =
-	 * previewLastMessageOtherUser; //this.dateLastMessageOtherUser =
-	 * dateLastMessageOtherUser; }
-	 */
+	} 
 
 	public String getConversationThread() {
 		return conversationThread;
@@ -44,26 +26,7 @@ public class UserConversation {
 	public void setConversationThread(String conversationThread) {
 		this.conversationThread = conversationThread;
 	}
-
-	/*
-	 * public String getNameOtherUser() { return nameOtherUser; }
-	 * 
-	 * public void setNameOtherUser(String nameOtherUser) { this.nameOtherUser =
-	 * nameOtherUser; }
-	 * 
-	 * public String getPreviewLastMessageOtherUser() { return
-	 * previewLastMessageOtherUser; }
-	 * 
-	 * public void setPreviewLastMessageOtherUser(String
-	 * previewLastMessageOtherUser) { this.previewLastMessageOtherUser =
-	 * previewLastMessageOtherUser; }
-	 * 
-	 * public String getDateLastMessageOtherUser() { return
-	 * dateLastMessageOtherUser; }
-	 * 
-	 * public void setDateLastMessageOtherUser(String dateLastMessageOtherUser) {
-	 * this.dateLastMessageOtherUser = dateLastMessageOtherUser; }
-	 */
+	
 	
 	public boolean isMultiple() {
 		return multiple;
@@ -89,6 +52,12 @@ public class UserConversation {
 		this.participantsConversation = participantsConversation;
 	}
 	
-	
+	public String getConversationTitle() {
+		return conversationTitle;
+	}
+
+	public void setConversationTitle(String conversationTitle) {
+		this.conversationTitle = conversationTitle;
+	}
 
 }

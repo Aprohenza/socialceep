@@ -42,7 +42,8 @@ import com.formbean.entity.PostEntity;
 import com.formbean.entity.UserEntity;
 import com.formbean.form.PostModelForm;
 import com.formbean.dto.AttachmentDto;
-import com.formbean.dto.PostModel;
+import com.formbean.dto.PostDto;
+import com.formbean.session.PostToFeedUserSessionLoad;
 import com.formbean.session.SessionManager;
 import com.formbean.session.UserOwnPost;
 import com.formbean.session.UserOwnPostSession;
@@ -54,16 +55,16 @@ public class PostController {
 	
 	private UserSession uSession;
 
-	@RequestMapping(value = "/post/load", method = RequestMethod.GET)
-	public ResponseEntity<HttpStatus> loadPost(ModelMap model, HttpServletRequest request) {
+	@RequestMapping(value = "/post-feed/load", method = RequestMethod.GET)
+	public ResponseEntity<Void> loadPost(ModelMap model, HttpServletRequest request) {
 		
 		this.uSession = (UserSession) request.getSession().getAttribute("uSession");
 		
-		// carga de post donde la session es author
-		Runnable userOwnPostSessionLoadInit = new UserOwnPostSessionLoad(this.uSession);
-		new Thread(userOwnPostSessionLoadInit).start();
+		// carga de post feed de la session
+		Runnable postToFeedUserSessionLoad = new PostToFeedUserSessionLoad(this.uSession, 1, 10);
+		new Thread(postToFeedUserSessionLoad).start();
 
-		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
+		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
 	@RequestMapping(value = "/post/insert", method = RequestMethod.POST)
@@ -214,7 +215,7 @@ public class PostController {
 			post.setPostBody(postBody);
 			post.setPostDate(DATE_FORMAT.format(new Date()));
 			// pm.setPostAuthorPhoto(SessionManager.getUserSession(request).getUserProfilePhoto());
-			post.setPostAuthorPhoto(uSession.getUserProfilePhoto());
+			post.setPostAuthorPhoto(uSession.getUserProfilePhotoProfile());
 			if(attachmentFile.size() != 0)
 				post.setPostAttachment(new AttachmentDto(Long.toString(postId), attachmentFile.get(0).getOriginalFilename(), "files", attachmentFile.get(0).getContentType()));
 			

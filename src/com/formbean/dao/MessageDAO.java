@@ -25,7 +25,6 @@ public class MessageDAO implements Runnable {
 	private final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 	
 	private String action;
-	private Object obj;
 	private MessageConversation mC;
 
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
@@ -36,9 +35,8 @@ public class MessageDAO implements Runnable {
 	public MessageDAO() {
 	}
 	
-	public MessageDAO(UserSession uSession, String action, Object obj, MessageConversation mC) {
+	public MessageDAO(UserSession uSession, String action, MessageConversation mC) {
 		this.action = action;
-		this.obj = obj;
 		this.mC = mC;
 		this.uSession = uSession;
 	}
@@ -48,13 +46,18 @@ public class MessageDAO implements Runnable {
 		return messagesOfConversation;
 	}
 
-	public void ceateNewMessage(UserSession uSession, NewMessageFromMessaging message, MessageConversation mC) {
+	public void ceateNewMessage(UserSession uSession, MessageConversation mC) {
 		
+		System.out.println("MESSAGE THREAD RECOGIDO EN MESSAGE DAO: " + mC.getMessageConversationThread());
 		
 		//se obtiene el conversation entity
-		ConversationEntity conversation = entitymanager.find(ConversationEntity.class, message.getMessageThread());
+		ConversationEntity conversation = entitymanager.find(ConversationEntity.class, mC.getMessageConversationThread());
+		System.out.println("CONVERSACIONN OBTENIDA PARA GUARDAR EL MENSAJE: " + conversation.getConversationThread());
 		//se obtiene user entity del author (session)
-		UserEntity userEntity = entitymanager.find(UserEntity.class, message.getMessageAuthor());
+		System.out.println("AUTHOR ID MENSAJE: " + mC.getMessageAuthorId());
+		UserEntity userEntity = entitymanager.find(UserEntity.class, mC.getMessageAuthorId());
+		
+		System.out.println("AUTHOR DEL MENSAJE: " + userEntity.getUserId());
 		
 		ConversationsMessageEntity conversationsMessage = new ConversationsMessageEntity();
 		//seteamos el conversation entity en conversation message
@@ -65,7 +68,7 @@ public class MessageDAO implements Runnable {
 		//creamos el message
 		messageEntity.setMessageAuthor(userEntity);
 		messageEntity.setConversationsMessage(conversationsMessage);
-		messageEntity.setMessageBody(message.getMessageBody());
+		messageEntity.setMessageBody(mC.getMessageBody());
 		messageEntity.setMessageDate(DATE_FORMAT.format(new Date()));
 		messageEntity.setMessageStatus("NOTSEEN");
 		
@@ -100,7 +103,7 @@ public class MessageDAO implements Runnable {
 	public void run() {
 		if(this.action.equals(ACTION_CREATE_NEW_MESSAGE)) {
 			System.out.println("Ejecutando hilo crear nuevo mensaje.");
-			ceateNewMessage(this.uSession, (NewMessageFromMessaging) this.obj, this.mC);
+			ceateNewMessage(this.uSession, this.mC);
 		}
 		
 	}

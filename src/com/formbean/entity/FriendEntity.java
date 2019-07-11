@@ -13,42 +13,42 @@ import java.util.Date;
 @NamedQueries({
 	@NamedQuery(name = "FriendEntity.findAll", query = "SELECT f FROM FriendEntity f"),
 	@NamedQuery(name = "FriendEntity.findAllFriendsRequest", query = "SELECT f FROM FriendEntity f WHERE f.friendUserInvited=:friendUserInvited AND f.friendRequestStatus='PENDING'"),
-	@NamedQuery(name = "FriendEntity.findAllFriends", query = "SELECT f FROM FriendEntity f WHERE f.friendUserInvited=:friendUserInvited AND f.friendRequestStatus='ACCEPTED'")
+	@NamedQuery(name = "FriendEntity.findAllFriends", query = "SELECT f FROM FriendEntity f WHERE f.friendUserInvited=:uSessionId AND f.friendRequestStatus='ACCEPTED' OR f.friendUserRequest=:uSessionId AND f.friendRequestStatus='ACCEPTED'")
 })
 public class FriendEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	// ni caso
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "friend_id")
-	private int friendId;
+	private Long friendId;
 
-	// ni caso
+	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "friend_request_date")
 	private Date friendRequestDate;
-
+	
+	// PENDING, ACCEPTED, REJECTED
 	@Column(name = "friend_request_status")
 	private String friendRequestStatus;
 
-	
+	//USUARIO INVITADO A CONECTAR
 	@Column(name = "friend_user_invited")
 	private String friendUserInvited;
 
 	
-
+	//USUARIO QUE INVITA A CONECTAR
 	@Column(name = "friend_user_request")
 	private String friendUserRequest;
 
 	public FriendEntity() {
 	}
 
-	public int getFriendId() {
+	public Long getFriendId() {
 		return this.friendId;
 	}
 
-	public void setFriendId(int friendId) {
+	public void setFriendId(Long friendId) {
 		this.friendId = friendId;
 	}
 

@@ -50,6 +50,8 @@ public class UserRegistrationRequestNonReferrerController {
 		String token = JwtGenerator.createJwtToUserRegistration(userRegistration.getUserNameRegistration(),
 				userRegistration.getUserLastNameRegistration(), userRegistration.getUserEmailRegistration(),
 				userRegistration.getUserPasswordRegistration(), userRegistration.getUserGenderRegistration());
+		
+	
 
 		try {
 			MailManager.enviarConGMail("aprohenza@gmail.com", "Confirmacion de registro", "<h2>Hola "

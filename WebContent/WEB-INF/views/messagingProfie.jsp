@@ -11,7 +11,7 @@
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.0.js"></script>
 <link rel="icon" type="image/vnd.microsoft.icon"
 	href="${pageContext.request.contextPath}/assets/img/ceep_logo_no_back.ico">
 <style type="text/css">
@@ -54,19 +54,23 @@ body {
 			<header class="p-2 border-bottom fw-600">Mensajes</header>
 			<main style="overflow-y: scroll; flex: 1;">
 			<section class="border-bottom bg-white" id="threads">
-
+			
+			
+			
+			<c:choose>
+				<c:when test="${hasConversations}">
 				<c:forEach var="conversation" items="${conversations}">
 					<a
 						href="${pageContext.request.contextPath}/messaging/thread/${conversation.conversationThread}">
 						<div
 							class="thread  <c:if test="${conversation.conversationThread == messages[0].messageConversationThread}">thread-selected</c:if>  message-hover border-bottom cursor-pointer d-flex align-items-center p-2">
 							<div>
-								<img src="${pageContext.request.contextPath}/images/${conversation.participantsConversation[0].participantPhotoProfile}" width="56" class="rounded-circle">
+								<img src="${pageContext.request.contextPath}/images/${conversation.participantsConversation[0].userProfilePhotoProfile}" width="56" class="rounded-circle">
 							</div>
 							<div class="px-2" style="flex: 1;">
 								<div class="d-flex justify-content-between" style="flex: 1;">
 									<span class="fw-600">
-										${conversation.participantsConversation[0].participantName} ${conversation.participantsConversation[0].participantLastName} </span><span
+										${conversation.participantsConversation[0].userProfileName} ${conversation.participantsConversation[0].userProfileLastName} </span><span
 										class="text-muted">${conversation.messageConversation[0].messageDate}</span>
 								</div>
 								<div>
@@ -76,12 +80,44 @@ body {
 						</div>
 					</a>
 				</c:forEach>
+				</c:when>
+				<c:otherwise>
+				<div class="col-12 p-0 d-flex justify-content-center align-items-center flex-column">
+					<img src="${pageContext.request.contextPath}/assets/img/messages_no_result.png" />
+					<div class="d-flex justify-content-center text-center flex-column">
+						<span class="py-2">Aun no hay mensajes.</span>
+						<span>Comunicate y entabla una comunicacion.</span>
+						<span>Podrias obtener buenos resultados.</span>
+					</div>
+				</div>
+				
+				</c:otherwise>
+			</c:choose>
+
+				
 			</section>
 			</main>
 		</section>
 
 		<section class="bg-danger col-8 p-0 border d-flex flex-column" id="side-right" style="align-self: baseline; height: 100%;">
-			<header style="min-height: 41px;" id="participant-conversation"	class="border-bottom p-2 bg-white fw-600"></header>
+			
+				<c:choose>
+				<c:when test="${!hasConversations}">
+				<header style="min-height: 41px;" id="participant-conversation"	class="border-bottom p-2 bg-white fw-600 text-center">Nuevo mensaje</header>
+				<div id="lookfor" style="position: relative;">
+					<input id="lookfor-friend-to-send-message" style="border-style: hidden; outline: none;" class="col-12 p-2 border-bottom" type="text" placeholder="Escribe el nombre de algun amigo...">
+					<div id="friends-match-to-send-message" style="position: absolute;" class="col-12 p-2 border-bottom d-none">
+						<span>No hay contactos con ese nombre</span>
+					</div>
+				</div>
+				
+				</c:when>
+				
+				<c:otherwise>
+				<header style="min-height: 41px;" id="participant-conversation"	class="border-bottom p-2 bg-white fw-600"></header>
+				</c:otherwise>				
+				</c:choose>
+		
 			<section id="story"	class="bg-white border-bottom py-2  justify-content-center align-items-center" style="height: 290px; overflow: auto;">
 
 				<c:forEach var="messages" items="${messages}">
@@ -170,38 +206,30 @@ body {
 	</section>		-->		
 			</section> 
 
-				<form:form name="message" class="d-flex flex-column"
-					style="flex: 1;" method="post" modelAttribute="message"
-					action="${pageContext.request.contextPath}/messaging/insert">
+				<form name="message" class="d-flex flex-column" style="flex: 1;">
 					<section class="bg-warning p-0" style="min-height: 100px;">
-						<form:textarea path="messageBody" class="col-12 p-2 m-0"
+						<textarea name="messageBody" class="col-12 p-2 m-0"
 							style="resize: none; box-shadow: none; outline: none; height: 100%; border-top: 2px solid #202c5a; border-left: 0; border-right: 0; border-bottom: 0;"
 							placeholder="Escribe un mensaje o adjunta un archivo"
-							id="box-message" />
+							id="box-message" ></textarea>
 
 					</section>
-					<div id="show-preview"
-						class="bg-white d-flex justify-content-center">
+					<div id="show-preview" class="bg-white d-flex justify-content-center">
 						<!-- <img src="assets/img/blank_default_profile.png"> -->
 					</div>
-					<section style="background: #f3f6f8; flex: 1; min-height: 50px;"
-						class="col-12 p-3 d-flex justify-content-between align-items-center"
-						id="botones">
+					<section style="background: #f3f6f8; flex: 1; min-height: 50px;" class="col-12 p-3 d-flex justify-content-between align-items-center" id="botones">
 						<div>
-							<i id="upload-image-message"
-								class="far fa-image fa-lg mr-2 cursor-pointer"></i> <input
-								type="file" name="image" accept="image/*" style="display: none;">
+							<i id="upload-image-message" class="far fa-image fa-lg mr-2 cursor-pointer"></i>
+							<input type="file" name="image" accept="image/*" style="display: none;">
 							<i class="far fa-smile fa-lg mr-2 cursor-pointer"></i>
 						</div>
 						<div>
-							<form:hidden path="messageThread" value="${messageThread}" />
-							<input type="submit" class="btn btn-primary btn-sm rounded-0"
-								disabled id="send-new-message" style="box-shadow: none;"
-								value="Enviar">
-
+							<input type="hidden" name="messageThread" value="${messageThread}" />
+							<input type="hidden" name="messageRecipient"  value="" />
+							<input type="submit" class="btn btn-primary btn-sm rounded-0" disabled id="send-new-message" style="box-shadow: none;" value="Enviar">
 						</div>
 					</section>
-				</form:form>
+				</form>
 			</section>
 	</div>
 </body>
@@ -255,59 +283,76 @@ body {
 
 								})
 
-						//carga ajax
-						/*  $.ajax({
-							type: 'GET',
-							url: '${pageContext.request.contextPath}/messaging/thread/messages/${messageThread}',
-							success: function(respuesta) {
-								$('#story').html('');
-								$('#story').removeClass('d-flex');
-								console.log(respuesta);
-								if(respuesta.length == 0){
-									$('#story').append('Los sentimos, no encontramos la conversacion que buscas.');
-									return;
-								}
-								respuesta.forEach(function(message){
-									<c:forEach var="conversation" items="${conversations}">
-									if(message.authorIdMessage != "${userSession.userProfileId}"){
-										$('#participant-conversation').html(message.authorMessage);
-									}
-									</c:forEach>
-									
-									$('#story').append('<jsp:include page="../views/tiles/message_item.jsp" />');
-								})
-							},
-							error: function(jqXHR, textStatus, errorThrown) {
-						        console.log(jqXHR.status, textStatus, errorThrown);
-						    }
-						}); */
+						
 
 						//send message ajax
-						$('#message').submit(function(e) {
+						$('form[name="message"]').submit(function(e) {
 							e.preventDefault();
+							var formData = new FormData();
+							formData.append("messageBody", $('textarea[name="messageBody"]', this).val());
+							formData.append("messageThread", $('input[name="messageThread"]', this).val());
+							formData.append("messageRecipient", $('input[name="messageRecipient"]', this).val());
 							$.ajax({
-								type : 'POST',
-								data : $("form[name='message']").serialize(),
 								url : '${pageContext.request.contextPath}/messaging/insert',
-								success : function(messages) {
-													/* $('#story').html('');
-													if (respuesta.length == 0) {
-														$('#story').append('Los sentimos, no se ha podido enviar sumensaje.');
-														return;
-													} */
+								type : 'POST',
+								processData : false,
+								contentType : false,
+								data : formData,
+								data : formData,
+								
+								success : function(messages) {													
 									console.log(messages);
 									$('#story').append('<jsp:include page="../views/tiles/message_item.jsp" />');
-													/* response
-													respuesta.forEach(function(message) {
-														$('#story').append('<jsp:include page="../views/tiles/message_item.jsp" />');
-													}) */
 									$('#box-message').val('');
 								},
 								error : function(jqXHR, textStatus, errorThrown) {
 									console.log(jqXHR.status, textStatus, errorThrown);
 								}
-							});// ajax
+							});//send message ajax
 						})
+						
+						
+						$('#lookfor-friend-to-send-message').keyup(function(){
+							var pattern = $(this).val();
+							if(pattern && pattern.length >= 4){
+								JSON.parse(sessionStorage.sessionFriends).forEach(function(friend){
+									console.log(friend.userProfileName);
+									if(friend.userProfileName.toUpperCase().includes(pattern.toUpperCase()) || friend.userProfileLastName.toUpperCase().includes(pattern.toUpperCase())){
+										$('#friends-match-to-send-message').removeClass('d-none');
+										$('#friends-match-to-send-message').removeClass('border-bottom');
+										$('#friends-match-to-send-message').html('<div contactid="'+friend.userProfileId+'" class="bg-white border-bottom p-2 contact-to-send-message" style="cursor: pointer;"><div class="d-flex align-items-center justify-content-between  p-2"><div class="d-flex align-items-center"><div><div><img src="${pageContext.request.contextPath}/images/'+friend.userProfilePhotoProfile+'" class="rounded-circle" width="36"></div></div><div class="px-2"><div><span class="fw-600 lh-8">'+friend.userProfileName+' '+friend.userProfileLastName+'</span><span class="px-2">&middot;</span><span class="text-muted">'+friend.userProfileRole+'</span></div><div><span>Desarrollo de aplicaciones multiplataformas</span></div></div></div></div></div>');		
+									}else{
+										$('#friends-match-to-send-message').html('<span>No hay contactos con ese nombre</span>');
+										$('#friends-match-to-send-message').removeClass('d-none');
+										$('#friends-match-to-send-message').addClass('border-bottom');
+									}
+								})
+								
+							}else{
+								$('#friends-match-to-send-message').html('<span>No hay contactos con ese nombre</span>');
+								$('#friends-match-to-send-message').addClass('d-none');
+							}
+						})
+						
+						$('#lookfor').on('click', '.contact-to-send-message', function(){
+							
+							var friendId = $(this).attr('contactid');
+							$('input[name="messageRecipient"]').attr('value', friendId);
+							var content;
+							$('#story').html(function(content){
+								JSON.parse(sessionStorage.sessionFriends).forEach(function(e){
+									if(e.userProfileId == friendId){
+										content = '<div class="px-2"><img width="72" height="72" class="rounded-circle" src="${pageContext.request.contextPath}/images/'+e.userProfilePhotoProfile+'" /><div class="d-flex flex-column"><span>'+e.userProfileName + ' ' + e.userProfileLastName +'</span><small class="text-muted">'+e.userProfileRole+'</small></div></div>';
+										$('#friends-match-to-send-message').addClass('d-none');
+										
+									}
+								})
+								
+								return content;
+							})
+							
+						})
+						
 						
 						
 						

@@ -1,47 +1,30 @@
 package com.formbean.dto;
 
-public class UserProfileDTO {
-	
+public class UserProfileDto {
+
 	private String userProfileId;
-	
+
 	private String userProfileName;
-	
+
 	private String userProfileLastName;
-	
+
 	private String userProfileRole;
-	
+
 	private String userProfileNationality;
-	
-	private String userProfilePhoto;
-	
-	public String getUserProfilePhoto() {
-		return userProfilePhoto;
-	}
-
-	public void setUserProfilePhoto(String userProfilePhoto) {
-		this.userProfilePhoto = userProfilePhoto;
-	}
-
-	/**
-	 * @return the userProfileNationality
-	 */
-	public String getUserProfileNationality() {
-		return userProfileNationality;
-	}
-
-	/**
-	 * @param userProfileNationality the userProfileNationality to set
-	 */
-	public void setUserProfileNationality(String userProfileNationality) {
-		this.userProfileNationality = userProfileNationality;
-	}
 
 	private String userProfilePhotoProfile;
-	
+
 	private String userProfilePhotoCover;
 	
-	public UserProfileDTO() {
-		
+	private String userProfileEmail;
+	
+	private String userProfilePhone;	
+
+	private String userProfileCycle;
+	
+
+	public UserProfileDto() {
+
 	}
 
 	/**
@@ -52,8 +35,9 @@ public class UserProfileDTO {
 	 * @param userProfilePhotoProfile
 	 * @param userProfilePhotoCover
 	 */
-	public UserProfileDTO(String userProfileId, String userProfileName, String userProfileLastName,
-			String userProfileRole, String userProfilePhotoProfile, String userProfilePhotoCover, String userProfileNationality, String userProfilePhoto) {
+	public UserProfileDto(String userProfileId, String userProfileName, String userProfileLastName,
+			String userProfileRole, String userProfilePhotoProfile, String userProfilePhotoCover,
+			String userProfileNationality, String userProfileEmail) {
 		this.userProfileId = userProfileId;
 		this.userProfileName = userProfileName;
 		this.userProfileLastName = userProfileLastName;
@@ -61,7 +45,7 @@ public class UserProfileDTO {
 		this.userProfileNationality = userProfileNationality;
 		this.userProfilePhotoProfile = userProfilePhotoProfile;
 		this.userProfilePhotoCover = userProfilePhotoCover;
-		this.userProfilePhoto = userProfilePhoto;
+		this.userProfileEmail = userProfileEmail;
 	}
 
 	/**
@@ -148,7 +132,42 @@ public class UserProfileDTO {
 		this.userProfilePhotoCover = userProfilePhotoCover;
 	}
 	
+	/**
+	 * @return the userProfileNationality
+	 */
+	public String getUserProfileNationality() {
+		return userProfileNationality;
+	}
+
+	/**
+	 * @param userProfileNationality the userProfileNationality to set
+	 */
+	public void setUserProfileNationality(String userProfileNationality) {
+		this.userProfileNationality = userProfileNationality;
+	}
 	
+	public String getUserProfileEmail() {
+		return userProfileEmail;
+	}
+
+	public void setUserProfileEmail(String userProfileEmail) {
+		this.userProfileEmail = userProfileEmail;
+	}
 	
+	public String getUserProfilePhone() {
+		return userProfilePhone;
+	}
+
+	public void setUserProfilePhone(String userProfilePhone) {
+		this.userProfilePhone = userProfilePhone;
+	}
+	
+	public String getUserProfileCycle() {
+		return userProfileCycle;
+	}
+
+	public void setUserProfileCycle(String userProfileCycle) {
+		this.userProfileCycle = userProfileCycle;
+	}
 
 }

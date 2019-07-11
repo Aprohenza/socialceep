@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 /**
  * The persistent class for the POST database table.
  * 
@@ -14,7 +16,8 @@ import javax.persistence.*;
 @NamedQueries({
 	@NamedQuery(name = "PostEntity.findAll", query = "SELECT p FROM PostEntity p"),
 	@NamedQuery(name = "PostEntity.findLastPostOnFeedUserSession", query = "SELECT p FROM PostEntity p  WHERE p.postAuthor=:postAuthor ORDER BY p.postId DESC"),
-	@NamedQuery(name = "PostEntity.findOwnPostSession", query = "SELECT p FROM PostEntity p WHERE p.postAuthor=:postAuthor")
+	@NamedQuery(name = "PostEntity.findOwnPostSession", query = "SELECT p FROM PostEntity p WHERE p.postAuthor=:postAuthor"),
+	@NamedQuery(name = "PostEntity.findFeedPostSession", query = "SELECT p FROM PostEntity p WHERE p.postAuthor=:uSession OR p.postAuthor IN :friendsSession ORDER BY p.postId DESC")
 })
 
 public class PostEntity implements Serializable {

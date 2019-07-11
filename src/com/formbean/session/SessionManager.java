@@ -1,7 +1,5 @@
 package com.formbean.session;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -10,31 +8,20 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
 
-import com.formbean.dao.MessageDAO;
-import com.formbean.dao.UserDAO;
 import com.formbean.encoder.PasswordEncoderGenerator;
-import com.formbean.entity.FriendEntity;
 import com.formbean.entity.LoginEntity;
-import com.formbean.entity.UserEntity;
 import com.formbean.form.UserLoginForm;
-import com.formbean.updates.CheckNewPost;
 
-@Component
+
 public class SessionManager {
 
 	
-	private static UserSession uSession;
-	
-	private UserOwnPostSessionLoad userOwnPostSessionLoad;
+	private UserSession uSession;
 	
 
-	public static void openSession(HttpServletRequest request, UserLoginForm user) throws NoResultException {
+	public void openSession(HttpServletRequest request, UserLoginForm user) throws NoResultException {
 		String email = user.getEmailUser();
 		String passwordEncoded = PasswordEncoderGenerator.encode(user.getPasswordUser());
 
@@ -56,8 +43,10 @@ public class SessionManager {
 		uSession.setUserProfileLastName(le.getUser().getUserLastname()); // last name
 		uSession.setUserProfileRole(le.getUser().getUserRole().getRole().getRoleName()); // role
 		uSession.setUserProfileNationality(le.getUser().getUserNationality()); // nationality
-		uSession.setUserProfilePhoto(Long.toString(le.getUser().getUserPhotoProfile())); // photo profile
+		uSession.setUserProfilePhotoProfile(Long.toString(le.getUser().getUserPhotoProfile())); // photo profile
 		uSession.setUserProfilePhotoCover(Long.toString(le.getUser().getUserPhotoCover())); // photo cover
+		uSession.setUserProfileCycle(le.getUser().getCycleCurseSessionEntity().getCycle().getCycleName()); // ciclo
+		uSession.setUserProfilePhone(le.getUser().getUserPhone()); // phone
 		
 		
 		// carga de amigos de la session

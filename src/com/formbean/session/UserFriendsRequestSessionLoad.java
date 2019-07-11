@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.formbean.controller.MyWebScket;
@@ -26,9 +25,9 @@ public class UserFriendsRequestSessionLoad implements Runnable {
 		this.uSession = uSession;
 	}
 
-	private List<UserFriendsRequest> getUserFriendsRequestSession() {
+	private List<UserFriendsRequestSession> getUserFriendsRequestSession() {
 
-		List<UserFriendsRequest> userFriendsRequest = new ArrayList<UserFriendsRequest>();
+		List<UserFriendsRequestSession> userFriendsRequest = new ArrayList<UserFriendsRequestSession>();
 
 		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
 		EntityManager entitymanager = emfactory.createEntityManager();
@@ -40,16 +39,16 @@ public class UserFriendsRequestSessionLoad implements Runnable {
 
 		if (!friendsRequest.isEmpty()) {
 			for (FriendEntity fe : friendsRequest) {
-				UserFriendsRequest userFriendRequest = new UserFriendsRequest();
+				UserFriendsRequestSession userFriendRequest = new UserFriendsRequestSession();
 				UserEntity uEntity = entitymanager.find(UserEntity.class, fe.getFriendUserRequest());
-				userFriendRequest.setUserId(uEntity.getUserId());
-				userFriendRequest.setUserName(uEntity.getUserName());
-				userFriendRequest.setUserLastName(uEntity.getUserLastname());
-				userFriendRequest.setUserGender(uEntity.getUserGender());
-				userFriendRequest.setUserNationality(uEntity.getUserNationality());
-				userFriendRequest.setUserPhotoProfile(uEntity.getUserPhotoProfile());
-				userFriendRequest.setUserPhotoCover(uEntity.getUserPhotoCover());
-				userFriendRequest.setUserRole(uEntity.getUserRole().getRole().getRoleName());
+				userFriendRequest.setUserProfileId(uEntity.getUserId());
+				userFriendRequest.setUserProfileName(uEntity.getUserName());
+				userFriendRequest.setUserProfileLastName(uEntity.getUserLastname());
+				//userFriendRequest.setUserGender(uEntity.getUserGender());
+				userFriendRequest.setUserProfileNationality(uEntity.getUserNationality());
+				userFriendRequest.setUserProfilePhotoProfile(Long.toString(uEntity.getUserPhotoProfile()));
+				userFriendRequest.setUserProfilePhotoCover(Long.toString(uEntity.getUserPhotoCover()));
+				userFriendRequest.setUserProfileRole(uEntity.getUserRole().getRole().getRoleName());
 				userFriendRequest.setFriendRequestId(fe.getFriendId());
 
 				userFriendsRequest.add(userFriendRequest);

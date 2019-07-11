@@ -39,8 +39,44 @@
 <body style="background-color: #f5f5f5; position: relative;">
 <jsp:include page="../views/tiles/navbar.jsp" />
 
-<div style="position: relative; margin-top: 51px;" class="container py-4 d-flex justify-content-center align-items-center">
-	<section class="p-0" style="width: 550px">
+<div style="position: relative; margin-top: 51px;" class="container py-4 d-flex justify-content-center align-items-start">
+<section class="col-4 p-0 pr-4 sticky-top">
+		<div class="bg-white border">
+			<a href="${pageContext.request.contextPath}/mynetwork/connections">
+				<div class="p-2 border-bottom" style="cursor: pointer;">
+				
+					<i class="fas fa-user-friends"></i>
+					<span class="px-2">contactos</span>
+				
+				</div>
+			</a>
+			<section id="publi" class="p-2">
+				<div class="bg-primary">
+					<a href="https://www.grupoceep.com/becas-oficiales-para-estudios-de-formacion-profesional/becas-oficiales-para-fp-del-ministerio-de-educacion/">
+					<img src="https://www.grupoceep.com/wp-content/uploads/2018/01/BECAS-FP-MEC.jpg" class="col-12 p-0">
+					</a>
+				</div>
+			</section>
+			<a href="">
+				<div class="border-top border-bottom p-2 d-flex justify-content-center" style="cursor: pointer;">
+					<span>Amplia tu red</span>
+				</div>
+			</a>
+			<div class="d-flex justify-content-center flex-column p-4" id="creditos">
+				<div class="d-flex justify-content-around">
+					<small>Acerca de<span class="px-2">&middot;</span>Centro de ayuda</small>
+				</div>
+				<div class="py-2 d-flex justify-content-center">
+					<small>Unete al Social Ceep Team</small>
+				</div>
+				<div class="d-flex justify-content-center">
+					<small>Social Ceep © 2019</small>
+				</div>
+			</div>
+	
+		</div>
+	</section>
+	<section class="p-0 col-8">
 		<div id="invitaciones" class="border p-0 bg-white">
 			<header id="invitaciones-header" class="p-2">
 				<span style="font-weight: 600;">Invitaciones</span>
@@ -163,13 +199,15 @@
 
 
 
-	if(localStorage.sessionFriendsRequest != null){
+	if(sessionStorage.sessionFriendsRequest != null && sessionStorage.sessionFriendsRequest != 0){
+		//console.log(localStorage.sessionFriendsRequest.length);
 		console.log("ESTOY AKI");
-		renderAllFriendRequest(JSON.parse(localStorage.sessionFriendsRequest));
+		renderAllFriendRequest(JSON.parse(sessionStorage.sessionFriendsRequest));
 	}else{
+		console.log("HACIENDO PETICION DE FRIENDS REQUEST");
 		$.ajax({
 			type: 'POST',
-			url: '${pageContext.request.contextPath}/mynetwork/friendrequest',
+			url: '${pageContext.request.contextPath}/mynetwork/friendrequest/all',
 			success: function(respuesta) {
 				
 				renderAllFriendRequest(respuesta);
@@ -185,7 +223,7 @@
 
 function renderAllFriendRequest(response){
 	//console.log(response);
-	if(localStorage.sessionFriendsRequest != null && localStorage.sessionFriendsRequest != 0){
+	if(sessionStorage.sessionFriendsRequest != null && sessionStorage.sessionFriendsRequest != 0){
 		$('#friend-request-container').html('');
 		$('#invitaciones-count').html('(' + response.length + ')');
 		response.forEach(function(friend){
@@ -210,7 +248,7 @@ $('#friend-request-container').on('click', '.friend-request-actions>button', fun
 		data: {'action' : action, 'friendrequestid' : friendrequestid},
 		url: '${pageContext.request.contextPath}/mynetwork/actionFriendRequest',
 		success: function(response) {
-			
+			sessionStorage.setItem("sessionFriendsRequest", JSON.stringify(response));
 			renderAllFriendRequest(response);
 		},
 		error: function(jqXHR, textStatus, errorThrown) {

@@ -1,21 +1,14 @@
 package com.formbean.controller;
 
 import java.io.IOException;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CopyOnWriteArraySet;
 
-import javax.json.Json;
-import javax.json.JsonValue;
-import javax.json.stream.JsonGenerator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
 import javax.websocket.OnError;
 import javax.websocket.OnMessage;
@@ -24,19 +17,8 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-
-import com.formbean.dto.AttachmentDto;
-import com.formbean.dto.PostModel;
-import com.formbean.entity.PostEntity;
-import com.formbean.entity.UserEntity;
 import com.formbean.session.MessageConversation;
 import com.formbean.session.UserFriendsSession;
-import com.formbean.session.UserOwnPost;
-import com.formbean.session.UserOwnPostSession;
 import com.formbean.session.UserSession;
 import com.google.gson.Gson;
 
@@ -117,14 +99,48 @@ public class MyWebScket {
 		});
 	}
 
+	// ENVIAR NOTIFICACION EXCLUSIVA A USUARIO CONECTADO
+	public static void sendNotificationToParticularUserConnected(Object object, String type, String destinatario) {
+
+		String contentType = type;
+
+		Gson gson = new Gson();
+
+		if (MyWebScket.users.get(destinatario) != null) {
+
+			endpoints.forEach(endpoint -> {
+				synchronized (endpoint) {
+					if (endpoint.session.getId().equals(users.get(destinatario))) {
+						try {
+							String json = gson.toJson(object);
+							json = "{\"contentType\":\"" + contentType + "\", \"content\":" + json + "}";
+							System.out.println("CONTENIDO ENVIADO AL CLIENTE: " + json);
+
+							endpoint.session.getBasicRemote().sendText(json);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					
+
+				}
+			});
+
+		}else {
+			System.out.println("EL USUARIO "+ destinatario +" NO ESTA CONECTADO.");
+		}
+
+	}
+
+	// ENVIAR NOTIFICACIONES A AMIGOS DE LA SESSION INCLUIDO YO
 	public static void sendNotificationToSessionFriends(Object object, String type, String userSessionId,
 			UserSession uSession) {
 
 		String contentType = type;
 
 		Gson gson = new Gson();
-		
-		//mandarmelo a mi mismo
+
+		// mandarmelo a mi mismo
 		String sessionScketId = users.get(userSessionId);
 		endpoints.forEach(endpoint -> {
 			synchronized (endpoint) {
@@ -143,14 +159,14 @@ public class MyWebScket {
 		});
 
 		for (UserFriendsSession userF : uSession.getUserFriendsSession()) {
-			
-			System.out.println("AMIGO DE LA SESSION: " + userF.getUserId());
-			
-			if (MyWebScket.users.containsKey(userF.getUserId())) {
+
+			System.out.println("AMIGO DE LA SESSION: " + userF.getUserProfileId());
+
+			if (MyWebScket.users.containsKey(userF.getUserProfileId())) {
 
 				endpoints.forEach(endpoint -> {
 					synchronized (endpoint) {
-						if (endpoint.session.getId().equals(MyWebScket.users.get(userF.getUserId()))) {
+						if (endpoint.session.getId().equals(MyWebScket.users.get(userF.getUserProfileId()))) {
 							try {
 								String json = gson.toJson(object);
 								json = "{\"contentType\":\"" + contentType + "\", \"content\":" + json + "}";
@@ -164,7 +180,7 @@ public class MyWebScket {
 					}
 				});
 
-			}else {
+			} else {
 				System.out.println("NO HAY AMIGOS CONECTADOS!!!");
 			}
 
@@ -173,15 +189,14 @@ public class MyWebScket {
 	}
 
 	public static void sendNewMessageChat(MessageConversation mC, String type, List<String> participantDestinatarios) {
-		
 
 		String contentType = type;
 
 		Gson gson = new Gson();
-		
+
 		System.out.println("PARTICPANTS A ENVIAR EL MENSAJE DE CHAT: " + participantDestinatarios.get(0));
-		for(String participante: participantDestinatarios) {
-			
+		for (String participante : participantDestinatarios) {
+
 			endpoints.forEach(endpoint -> {
 				synchronized (endpoint) {
 					System.out.println(endpoint.session.getId() + " = " + MyWebScket.users.get(participante));
@@ -198,12 +213,36 @@ public class MyWebScket {
 					}
 				}
 			});
-			
+
 		}
+
+	}
+
+	public static void notifyToUser(String destinatario, String type) {
 		
-		
-		
-		
+		if (MyWebScket.users.get(destinatario) != null) {
+
+			endpoints.forEach(endpoint -> {
+				synchronized (endpoint) {
+					if (endpoint.session.getId().equals(users.get(destinatario))) {
+						try {
+							//String json = gson.toJson(object);
+							String json = "{\"contentType\":\"" + type + "\", \"content\":" + 1 + "}";
+							System.out.println("CONTENIDO ENVIADO AL CLIENTE: " + 1);
+
+							endpoint.session.getBasicRemote().sendText(json);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					
+
+				}
+			});
+
+		}else {
+			System.out.println("EL USUARIO "+ destinatario +" NO ESTA CONECTADO.");
+		}
 		
 	}
 

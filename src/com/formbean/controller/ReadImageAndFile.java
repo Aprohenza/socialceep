@@ -30,7 +30,10 @@ public class ReadImageAndFile {
 		
 		System.out.println("IMAGEN NAME: " + filename);
 		
-		File file = new File(request.getContextPath() + "/images", filename);
+		//File file = new File(request.getContextPath() + "/images", filename);
+		
+		//File file = new File("C:\\FormBeanSpringExample\\images", filename);
+		File file = new File("/FormBeanSpringExample/images", filename);
 		
 		System.out.println("RUTA DELA IMAGE: " + file.toString());
 		
@@ -56,7 +59,8 @@ public class ReadImageAndFile {
 		
 		System.out.println("IMAGEN NAME: " + filename);
 		
-		File file = new File("C:\\FormBeanSpringExample\\files", filename);
+		//File file = new File("C:\\FormBeanSpringExample\\files", filename);
+		File file = new File("/FormBeanSpringExample/files", filename);
 		
 		System.out.println("RUTA DELA IMAGE: " + file.toString());
 		

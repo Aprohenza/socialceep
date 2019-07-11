@@ -1,6 +1,5 @@
 package com.formbean.controller;
 
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,13 +23,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.formbean.dto.UserProfileDTO;
+import com.formbean.dto.UserProfileDto;
 import com.formbean.entity.LoginEntity;
 import com.formbean.entity.UserEntity;
 import com.formbean.form.PostModelForm;
 import com.formbean.form.UserLoginForm;
 import com.formbean.form.model.UserRegistrationRequestNonReferrer;
+import com.formbean.session.PostToFeedUserSessionLoad;
 import com.formbean.session.SessionManager;
+import com.formbean.session.UserFriendSessionLoad;
+import com.formbean.session.UserFriendsSession;
 import com.formbean.session.UserOwnPost;
 import com.formbean.session.UserSession;
 import com.formbean.validator.LoginValidator;
@@ -40,18 +42,13 @@ public class MainController {
 
 	@Autowired
 	private LoginValidator loginValidator;
-	
-	
-	private UserSession uSession;
 
-	
+	private UserSession uSession;
 
 	/*
 	 * @InitBinder protected void initBinder(WebDataBinder binder) {
 	 * binder.addValidators(loginValidator); }
 	 */
-
-	
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String showLogingUserForm(Model model) {
@@ -66,62 +63,76 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginCheck(@ModelAttribute("user") @Validated UserLoginForm user, BindingResult result, ModelMap model,
-			HttpServletRequest request) {
-		
+	public String loginCheck(@ModelAttribute("user") @Validated UserLoginForm user, BindingResult result,
+			ModelMap model, HttpServletRequest request) {
+
 		if (result.hasErrors())
 			return "redirect:login";
 
-
-
-		try {			
-			SessionManager.openSession(request, user);
+		try {
+			SessionManager sManager = new SessionManager();
+			sManager.openSession(request, user);
 		} catch (NoResultException ex) {
 			System.out.println("Login incorrecto para usuario: " + user.getEmailUser());
 			result.rejectValue("emailUser", "user.login.invalid");
 			return "redirect:login";
 		}
 
-		
 		return "redirect:feed";
 	}
 
 	@RequestMapping(value = "/feed", method = RequestMethod.GET)
 	public String myAnotherFunc(ModelMap model, HttpServletRequest request) {
 
+		uSession = (UserSession) request.getSession().getAttribute("uSession");
+
 		model.addAttribute("newPost", new PostModelForm());
 
 		model.addAttribute("uSession", uSession);
-		
 
 		return "feed";
 	}
 
 	@RequestMapping(value = "/profile/{userid}", method = RequestMethod.GET)
 	public String profile(ModelMap model, @PathVariable("userid") String userid, HttpServletRequest request) {
-		
+
 		uSession = (UserSession) request.getSession().getAttribute("uSession");
-		
-		if(uSession.getUserProfileId().equals(userid)) {
-			model.addAttribute("userProfile", uSession);
-		}else {
+
+		boolean isMe = false;
+
+		if (!uSession.getUserProfileId().equals(userid)) {
+
+			boolean isMyFriend = false;
+
 			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
 			EntityManager entitymanager = emfactory.createEntityManager();
 
 			UserEntity userEntity = entitymanager.find(UserEntity.class, userid);
-			
+
 			if (userEntity == null) {
 				return "profileUnavailable";
 			}
 
-			UserProfileDTO userProfile = new UserProfileDTO(userEntity.getUserId(), userEntity.getUserName(),
+			UserProfileDto userProfile = new UserProfileDto(userEntity.getUserId(), userEntity.getUserName(),
 					userEntity.getUserLastname(), userEntity.getUserRole().getRole().getRoleName(),
-					Long.toString(userEntity.getUserPhotoProfile()), Long.toString(userEntity.getUserPhotoCover()), userEntity.getUserNationality(), Long.toString(userEntity.getUserPhotoProfile()));
-			
+					Long.toString(userEntity.getUserPhotoProfile()), Long.toString(userEntity.getUserPhotoCover()),
+					userEntity.getUserNationality(), userEntity.getUserEmail());
+
+			// is my friend
+			for (UserFriendsSession uFS : uSession.getUserFriendsSession()) {
+				if (uFS.getUserProfileId().equals(userid)) {
+					isMyFriend = true;
+				}
+			}
+
 			model.addAttribute("userProfile", userProfile);
-			model.addAttribute("uSession", uSession);
+			model.addAttribute("isMyFriend", isMyFriend);
+		} else {
+			model.addAttribute("userProfile", uSession);
+			isMe = true;
 		}
-		
+
+		model.addAttribute("isMe", isMe);
 
 		return "userProfile";
 	}
@@ -138,24 +149,23 @@ public class MainController {
 
 		return "mynetwork";
 	}
-	
+
 	@RequestMapping(value = "/socket", method = RequestMethod.GET)
 	public String mySocket(HttpServletRequest request) {
 
 		return "socket";
 	}
-	
-	/*
-	 * @RequestMapping(value = "/session/components/load", method =
-	 * RequestMethod.POST) public ResponseEntity<HttpStatus> loadSessionComponents()
-	 * {
-	 * 
-	 * 
-	 * sManager.loadSessionComponents();
-	 * 
-	 * return new ResponseEntity<HttpStatus>(HttpStatus.OK);
-	 * 
-	 * }
-	 */
+
+	@RequestMapping(value = "/friends-session/load", method = RequestMethod.GET)
+	public ResponseEntity<Void> loadFriendsSession(ModelMap model, HttpServletRequest request) {
+
+		uSession = (UserSession) request.getSession().getAttribute("uSession");
+
+		// carga de amigos de la session
+		Runnable userFriendSessionLoadInit = new UserFriendSessionLoad(uSession);
+		new Thread(userFriendSessionLoadInit).start();
+
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 
 }

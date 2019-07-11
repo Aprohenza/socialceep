@@ -1,8 +1,8 @@
 package com.formbean.session;
 
-import com.formbean.dto.PostModel;
+import com.formbean.dto.PostDto;
 
-public class UserFriendsPostSession extends PostModel {
+public class UserFriendsPostSession extends PostDto {
 
 	/**
 	 * 

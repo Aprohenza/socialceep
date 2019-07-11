@@ -6,12 +6,11 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 
 import com.formbean.dto.CommentPostDto;
-import com.formbean.dto.PostModel;
+import com.formbean.dto.PostDto;
 
 
 
-@Component
-public class UserOwnPostSession extends PostModel {
+public class UserOwnPostSession extends PostDto {
 
 	
 	private List<CommentPostDto> commentstPostDto;

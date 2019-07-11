@@ -1,6 +1,6 @@
 package com.formbean.dto;
 
-import com.formbean.dao.UserDAO;
+import com.formbean.dao.UserDao;
 import com.formbean.entity.PostCommentEntity;
 import com.formbean.entity.UserEntity;
 
@@ -49,7 +49,7 @@ public class CommentPostDto {
 		this.commentAuthorId = postCommentEntity.getPostcommentPostAuthor();
 		
 		//seteo de las propiedades del author del comentario
-		UserEntity commentAuthor = UserDAO.getUserById(this.commentAuthorId);
+		UserEntity commentAuthor = UserDao.getUserById(this.commentAuthorId);
 		this.commentAuthorName = commentAuthor.getUserName();
 		this.commentAuthorLastName = commentAuthor.getUserLastname();
 		this.commentAuthorPhotoProfile = commentAuthor.getUserPhotoProfile();

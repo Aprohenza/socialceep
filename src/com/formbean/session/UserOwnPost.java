@@ -3,9 +3,9 @@ package com.formbean.session;
 import java.util.List;
 
 import com.formbean.dto.CommentPostDto;
-import com.formbean.dto.PostModel;
+import com.formbean.dto.PostDto;
 
-public class UserOwnPost extends PostModel {
+public class UserOwnPost extends PostDto {
 	
 	private List<CommentPostDto> commentstPostDto;
 	

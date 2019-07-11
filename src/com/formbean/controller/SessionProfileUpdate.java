@@ -20,15 +20,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.formbean.dao.UserDAO;
-import com.formbean.dto.UserProfileDTO;
+import com.formbean.dao.UserDao;
+import com.formbean.dto.UserProfileDto;
 import com.formbean.session.UserOwnPost;
 import com.formbean.session.UserSession;
 
 @Controller
 public class SessionProfileUpdate {
 
-	@Autowired
+	
 	private UserSession uSession;
 	
 	/*
@@ -46,12 +46,13 @@ public class SessionProfileUpdate {
 		MultipartFile photoProfile = request.getFile("photoProfile");
 		MultipartFile photoCover = request.getFile("photoProfileCover");
 		String nationality = req.getParameter("profileNationality");
+		String email = req.getParameter("emailProfile");
 		
-		
+		uSession = (UserSession) req.getSession().getAttribute("uSession");
 
 		Long timeCurrent = System.currentTimeMillis();
 		
-		UserProfileDTO userProfileDataChange = new UserProfileDTO();
+		UserProfileDto userProfileDataChange = new UserProfileDto();
 		userProfileDataChange.setUserProfileId(uSession.getUserProfileId());		
 		
 		try {			
@@ -68,10 +69,16 @@ public class SessionProfileUpdate {
 				this.updatePhotoProfileCover(Long.toString(timeCurrent));				
 			}
 			
-			if(nationality != null && !nationality.equals("")) {
+			if(nationality != null && !nationality.equals("") && !nationality.contains("none")) {
 				System.out.println("Cambiando nacionalidad a: " + nationality);
 				this.uSession.setUserProfileNationality(nationality);
 				userProfileDataChange.setUserProfileNationality(nationality);
+			}
+			
+			if(email != null && !email.equals("")) {
+				System.out.println("Cambiando email a: " + email);
+				this.uSession.setUserProfileEmail(email);;
+				userProfileDataChange.setUserProfileEmail(email);
 			}
 			
 			this.updateUserInformationInBD(userProfileDataChange);
@@ -86,7 +93,7 @@ public class SessionProfileUpdate {
 
 	// update photo profile
 	private void updatePhotoProfile(String userProfilePhoto) {
-		this.uSession.setUserProfilePhoto(userProfilePhoto);
+		this.uSession.setUserProfilePhotoProfile(userProfilePhoto);
 	}
 
 	// update photo cover
@@ -118,8 +125,8 @@ public class SessionProfileUpdate {
 	}
 	
 	//update user into bd
-	private void updateUserInformationInBD(UserProfileDTO userProfileDataChange) {
-		Runnable xx = new UserDAO(userProfileDataChange);
+	private void updateUserInformationInBD(UserProfileDto userProfileDataChange) {
+		Runnable xx = new UserDao(userProfileDataChange);
 		new Thread(xx).start();		
 	}
 

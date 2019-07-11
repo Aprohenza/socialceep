@@ -44,27 +44,30 @@
 				<div id="hero-photo-cover" style="background-image: url('${pageContext.request.contextPath}/images/${userProfile.userProfilePhotoCover}'); background-position: center; background-size: cover; height: 200px;"></div>
 				<div id="hero-data" class="px-4" style="position: relative;">
 					
-					<div id="hero-photo-profile" style="position: absolute; top: -120%;"><img width="160" src="${pageContext.request.contextPath}/images/${userProfile.userProfilePhoto}" class="rounded-circle"></div>
+					<div id="hero-photo-profile" style="position: absolute; top: -120%;"><img width="160" height="160" src="${pageContext.request.contextPath}/images/${userProfile.userProfilePhotoProfile}" class="rounded-circle"></div>
 					<div id="hero-row-data" class="row mx-0" style="margin-top: 100px;">
 						<div id="hero-data-left" class="">
 							<div class="">
 								<div class=""><span id="hero-name" style="font-size: 1.9rem; font-weight: 400; line-height: 1.3;">${userProfile.userProfileName} ${userProfile.userProfileLastName}</span><span style="font-size: 1.3rem" class="text-muted px-2">&middot;</span><span id="hero-role" class="text-muted" style="font-size: 1.3rem;">${userProfile.userProfileRole}</span></div>
-								<div id="hero-course" style="font-size: 1.3rem; line-height: 0.9">Desarrollo de Aplicaciones Multiplataformas</div>
+								<div id="hero-course" style="font-size: 1.3rem; line-height: 0.9">${userProfile.userProfileCycle}</div>
 								<div class="d-flex align-items-center" id="hero-country" style="line-height: 2.4;">
 									<div id="hero-country-flag"><img src="${pageContext.request.contextPath}/assets/img/flags/blank.gif" class="flag flag-${userProfile.userProfileNationality.split('-')[1]}"/></div>
 									<div id="hero-country-name" class="text-muted" style="font-size: 1.3rem;">${userProfile.userProfileNationality.split("-")[0]}</div>
 								</div>
 							</div>
 							<c:choose>
-								<c:when test="${userProfile.userProfileId != uSession.userProfileId}">
+								<c:when test="${isMe}">
 									<div id="raw-btn" class="py-2">
-										<div class="btn btn-primary border rounded-0">Conectar</div>
-										<div class="btn btn-outline-primary border rounded-0">Enviar mensaje</div>
-									</div>
+										<div id="hero-profile-edit" class="btn btn-primary border rounded-0">Editar</div>
+									</div>									
 								</c:when>
 								<c:otherwise>
 									<div id="raw-btn" class="py-2">
-										<div id="hero-profile-edit" class="btn btn-primary border rounded-0">Editar</div>
+									<c:if test="${!isMyFriend}">
+										<div id="new-friend-request-action" userid="${userProfile.userProfileId}" class="btn btn-primary border rounded-0">Conectar</div>
+									</c:if>
+										
+										<div class="btn btn-outline-primary border rounded-0">Enviar mensaje</div>
 									</div>
 								</c:otherwise>
 							</c:choose>
@@ -117,7 +120,7 @@
 								</div>
 							</div>
 							<div class="d-flex justify-content-center align-items-end" style="position: absolute; top: 100px; margin-left: 30px;" id="photo-profile">
-								<img width="160" class="rounded-circle" src="${pageContext.request.contextPath}/images/${userProfile.userProfilePhoto}">
+								<img height="160" width="160" class="rounded-circle" src="${pageContext.request.contextPath}/images/${userProfile.userProfilePhotoProfile}">
 								<div style="cursor: pointer;" class="p-2" id="edit-photo-profile"><i class="fas fa-pencil-alt bg-white p-2 rounded-circle float-right"></i></div>
 								<input type="file" name="new-photo-profile" style="display: none;">
 							</div>
@@ -140,17 +143,17 @@
 						  	<div class="d-flex" id="contact-information">
 						  		<div style="flex:1;" class="form-group mr-1">
 							    	<label style="line-height: 0.3;" for="inputEmailProfile">Correo electronico</label>
-							    	<input style="box-shadow: none;" type="email" class="form-control rounded-0" id="inputEmailProfile" aria-describedby="Direccion de email" value="aprohenza@gmail.com">
+							    	<input style="box-shadow: none;" type="email" class="form-control rounded-0" name="new-email-profile" id="inputEmailProfile" aria-describedby="Direccion de email" value="${userProfile.userProfileEmail}">
 							  	</div>
 
 							  	<div style="flex: 1;" class="ml-1">
 							  		<label style="line-height: 0.3;" for="inputEmailProfile">Telefono de contacto</label>
-							    	<input style="box-shadow: none;" type="text" class="form-control rounded-0" id="inputPhoneProfile" aria-describedby="Telefono de contacto" value="674929018">
+							    	<input style="box-shadow: none;" type="text" class="form-control rounded-0" id="inputPhoneProfile" aria-describedby="Telefono de contacto" value="${userProfile.userProfilePhone}">
 							  	</div>
 						  	</div>
 
 						  	<div id="country" class="form-group">
-						  		<label style="line-height: 0.3;">Pais</label>
+						  			<label style="line-height: 0.3;">Pais</label>
 							    	<select class="custom-select rounded-0">
 										<option value="none" selected>Selecciona pais</option>
 									  	<option value="af">Afganistán</option>
@@ -500,6 +503,7 @@
 			formData = new FormData();
 			formData.append("photoProfile", $('input[name="new-photo-profile"]')[0].files[0]);
 			formData.append("photoProfileCover", $('input[name="new-photo-cover"]')[0].files[0]);
+			formData.append("emailProfile", $('input[name="new-email-profile"]').val());
 			formData.append("profileNationality", $('#country>select>option:selected').text() + '-' + $('#country>select').val());
 			//formData.append("postBody", $('textarea[name="postBody"]', this).val());
 
@@ -516,11 +520,39 @@
 					console.log(jqXHR.status, textStatus, errorThrown);
 				}
 			});
+		})//FIN - JS PARA VISTA EDITAR PROFILE
+		
+		//SEND NEW FRIEND REQUEST
+		$('#new-friend-request-action').click(function(){
+			var userid = $(this).attr('userid');
+			fD = new FormData();
+			fD.append("userid", userid);
+			$.ajax({
+				url : '${pageContext.request.contextPath}/mynetwork/sendNewFriendRequest',
+				type : 'POST',
+				processData : false,
+				contentType : false,
+				data : fD,
+				success : function(jqXHR) {
+					console.log(jqXHR.status);
+					$('#new-friend-request-action').addClass('d-none');
+				},
+				error : function(jqXHR, textStatus, errorThrown) {
+					console.log(jqXHR.status, textStatus, errorThrown);
+				}
+			});
+			
+		})//END - SEND NEW FRIEND REQUEST
+		
+		
+		$('#country select option').each(function(){
+			if($(this).val() == '${userProfile.userProfileNationality.split("-")[1]}'){
+				$(this).attr('selected', true);
+			}
 		})
-		//FIN - JS PARA VISTA EDITAR PERFILE
 		
 		
 
-	})
+	})// READY
 </script>
 </html>

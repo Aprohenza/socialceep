@@ -15,6 +15,15 @@
 		<class>com.formbean.entity.FriendEntity</class>
 		<class>com.formbean.entity.PostCommentEntity</class>
 		<class>com.formbean.entity.AttachmentEntity</class>
+		<class>com.formbean.entity.UserConversationEntity</class>
+		<class>com.formbean.entity.CycleEntity</class>
+		<class>com.formbean.entity.CurseEntity</class>
+		<class>com.formbean.entity.SessionEntity</class>
+		<class>com.formbean.entity.CycleCurseSessionEntity</class>
+		
+		
+		
+		
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
