@@ -6,7 +6,7 @@ import javax.persistence.Persistence;
 
 import com.formbean.entity.ConversationEntity;
 
-public class ConversationDAO {
+public class ConversationDao {
 
 	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
 	EntityManager entitymanager = emfactory.createEntityManager();
