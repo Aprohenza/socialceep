@@ -1,7 +1,5 @@
 package com.formbean.dao;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -11,8 +9,6 @@ import javax.persistence.TypedQuery;
 
 import com.formbean.dto.UserProfileDto;
 import com.formbean.entity.ConversationEntity;
-import com.formbean.entity.CycleCurseSessionEntity;
-import com.formbean.entity.UserConversationEntity;
 import com.formbean.entity.UserEntity;
 
 public class UserDao implements Runnable {
