@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="FormBeanSpringExample">
+		<class>com.formbean.entity.LoginEntity</class>
+		<class>com.formbean.entity.ConversationsMessageEntity</class>
+		<class>com.formbean.entity.ConversationEntity</class>
+		<class>com.formbean.entity.MessageEntity</class>
+		<class>com.formbean.entity.RoleEntity</class>
+		<class>com.formbean.entity.UserEntity</class>
+		<class>com.formbean.entity.UserRoleEntity</class>
+		<class>com.formbean.entity.PostEntity</class>
+		<class>com.formbean.entity.FriendEntity</class>
+		<class>com.formbean.entity.PostCommentEntity</class>
+		<class>com.formbean.entity.AttachmentEntity</class>
+		
+		<properties>
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+			<property name="javax.persistence.jdbc.url"	value="jdbc:mysql://35.197.217.56:3306/socialceep" />
+			<property name="javax.persistence.jdbc.user" value="socialceep" />
+			<property name="javax.persistence.jdbc.password" value="Panoramix91" />
+		</properties>
+
+
+	</persistence-unit>
+</persistence>

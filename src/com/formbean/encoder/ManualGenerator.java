@@ -1,0 +1,11 @@
+package com.formbean.encoder;
+
+public class ManualGenerator {
+
+	public static void main(String[] args) {
+
+		String encoded = PasswordEncoderGenerator.encode("eduardo");
+
+		System.out.println(encoded);
+	}
+}
