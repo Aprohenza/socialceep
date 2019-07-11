@@ -45,7 +45,7 @@ public class SessionManager {
 		uSession.setUserProfileNationality(le.getUser().getUserNationality()); // nationality
 		uSession.setUserProfilePhotoProfile(Long.toString(le.getUser().getUserPhotoProfile())); // photo profile
 		uSession.setUserProfilePhotoCover(Long.toString(le.getUser().getUserPhotoCover())); // photo cover
-		uSession.setUserProfileCycle(le.getUser().getCycleCurseSessionEntity().getCycle().getCycleName()); // ciclo
+		//uSession.setUserProfileCycle(le.getUser().getCycleCurseSessionEntity().getCycle().getCycleName()); // ciclo
 		uSession.setUserProfilePhone(le.getUser().getUserPhone()); // phone
 		
 		

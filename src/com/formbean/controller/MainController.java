@@ -23,7 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.formbean.dao.CycleCurseSessionDao;
+import com.formbean.dao.UserDao;
 import com.formbean.dto.UserProfileDto;
+import com.formbean.entity.CycleCurseSessionEntity;
 import com.formbean.entity.LoginEntity;
 import com.formbean.entity.UserEntity;
 import com.formbean.form.PostModelForm;
@@ -99,24 +102,50 @@ public class MainController {
 		uSession = (UserSession) request.getSession().getAttribute("uSession");
 
 		boolean isMe = false;
+		
+		UserEntity userEntity = UserDao.getUserById(userid);
+		
+		if (userEntity == null) {
+			return "profileUnavailable";
+		}
+		
+		Integer userProfileCycle = null;
+		String userProfileCycleName = null;
+		
+		if(userEntity.getCycleCurseSessionEntity() != null) {
+			userProfileCycle = userEntity.getUserCycle();
+			userProfileCycleName = CycleCurseSessionDao.getCycleCurseSessionNameCycle(userProfileCycle);
+			 
+			
+		}
+			
+		
+		UserProfileDto userProfile = new UserProfileDto(userEntity.getUserId(), userEntity.getUserName(),
+				userEntity.getUserLastname(), userEntity.getUserRole().getRole().getRoleName(),
+				Long.toString(userEntity.getUserPhotoProfile()), Long.toString(userEntity.getUserPhotoCover()),
+				userEntity.getUserNationality(), userEntity.getUserEmail(), userProfileCycleName);
 
 		if (!uSession.getUserProfileId().equals(userid)) {
 
 			boolean isMyFriend = false;
 
-			EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
-			EntityManager entitymanager = emfactory.createEntityManager();
+		//	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
+		//	EntityManager entitymanager = emfactory.createEntityManager();
 
-			UserEntity userEntity = entitymanager.find(UserEntity.class, userid);
+		//	UserEntity userEntity = entitymanager.find(UserEntity.class, userid);
 
-			if (userEntity == null) {
-				return "profileUnavailable";
-			}
+			/*
+			 * if (userEntity == null) { return "profileUnavailable"; }
+			 */
 
-			UserProfileDto userProfile = new UserProfileDto(userEntity.getUserId(), userEntity.getUserName(),
-					userEntity.getUserLastname(), userEntity.getUserRole().getRole().getRoleName(),
-					Long.toString(userEntity.getUserPhotoProfile()), Long.toString(userEntity.getUserPhotoCover()),
-					userEntity.getUserNationality(), userEntity.getUserEmail());
+			/*
+			 * UserProfileDto userProfile = new UserProfileDto(userEntity.getUserId(),
+			 * userEntity.getUserName(), userEntity.getUserLastname(),
+			 * userEntity.getUserRole().getRole().getRoleName(),
+			 * Long.toString(userEntity.getUserPhotoProfile()),
+			 * Long.toString(userEntity.getUserPhotoCover()),
+			 * userEntity.getUserNationality(), userEntity.getUserEmail());
+			 */
 
 			// is my friend
 			for (UserFriendsSession uFS : uSession.getUserFriendsSession()) {
@@ -128,7 +157,7 @@ public class MainController {
 			model.addAttribute("userProfile", userProfile);
 			model.addAttribute("isMyFriend", isMyFriend);
 		} else {
-			model.addAttribute("userProfile", uSession);
+			model.addAttribute("userProfile", userProfile);
 			isMe = true;
 		}
 

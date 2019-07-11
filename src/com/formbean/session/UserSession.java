@@ -44,7 +44,7 @@ public class UserSession extends UserProfileDto{
 	public UserSession(String userProfileId, String userProfileName, String userProfileLastName, String userProfileRole,
 			String userProfilePhotoProfile, String userProfilePhotoCover, String userProfileNationality) {
 		super(userProfileId, userProfileName, userProfileLastName, userProfileRole, userProfilePhotoProfile,
-				userProfilePhotoCover, userProfileNationality, null);
+				userProfilePhotoCover, userProfileNationality, null, null);
 		
 	}
 

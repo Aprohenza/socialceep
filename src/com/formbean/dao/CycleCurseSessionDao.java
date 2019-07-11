@@ -48,6 +48,44 @@ public class CycleCurseSessionDao {
 		
 	}
 	
+	public static CycleCurseSessionEntity getCycleCurseSessionById(Integer cycleCurseSessionId) {
+		
+	
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
+		EntityManager entitymanager = emfactory.createEntityManager();
+
+		TypedQuery<CycleCurseSessionEntity> q = entitymanager.createNamedQuery("CycleCurseSessionEntity.findClassToUser", CycleCurseSessionEntity.class);
+		
+		CycleCurseSessionEntity cycleCurseSession = entitymanager.find(CycleCurseSessionEntity.class, cycleCurseSessionId);
+		
+	
+		
+		entitymanager.close();
+		emfactory.close();
+		
+		return cycleCurseSession;
+		
+	}
+	
+	public static String getCycleCurseSessionNameCycle(Integer cycleCurseSessionId) {
+		
+		
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
+		EntityManager entitymanager = emfactory.createEntityManager();
+
+		TypedQuery<CycleCurseSessionEntity> q = entitymanager.createNamedQuery("CycleCurseSessionEntity.findClassToUser", CycleCurseSessionEntity.class);
+		
+		CycleCurseSessionEntity cycleCurseSession = entitymanager.find(CycleCurseSessionEntity.class, cycleCurseSessionId);
+		
+		String cycleName = cycleCurseSession.getCycle().getCycleName();
+		
+		entitymanager.close();
+		emfactory.close();
+		
+		return cycleName;
+		
+	}
+	
 	
 
 }

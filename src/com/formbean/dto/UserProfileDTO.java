@@ -1,5 +1,7 @@
 package com.formbean.dto;
 
+import com.formbean.entity.CycleCurseSessionEntity;
+
 public class UserProfileDto {
 
 	private String userProfileId;
@@ -37,7 +39,7 @@ public class UserProfileDto {
 	 */
 	public UserProfileDto(String userProfileId, String userProfileName, String userProfileLastName,
 			String userProfileRole, String userProfilePhotoProfile, String userProfilePhotoCover,
-			String userProfileNationality, String userProfileEmail) {
+			String userProfileNationality, String userProfileEmail, String userProfileCycle) {
 		this.userProfileId = userProfileId;
 		this.userProfileName = userProfileName;
 		this.userProfileLastName = userProfileLastName;
@@ -45,7 +47,8 @@ public class UserProfileDto {
 		this.userProfileNationality = userProfileNationality;
 		this.userProfilePhotoProfile = userProfilePhotoProfile;
 		this.userProfilePhotoCover = userProfilePhotoCover;
-		this.userProfileEmail = userProfileEmail;
+		this.userProfileEmail = userProfileEmail;		
+		this.userProfileCycle = userProfileCycle;
 	}
 
 	/**

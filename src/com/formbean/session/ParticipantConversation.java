@@ -18,7 +18,7 @@ public class ParticipantConversation extends UserProfileDto {
 			String userProfileRole, String userProfilePhotoProfile, String userProfilePhotoCover,
 			String userProfileNationality) {
 		super(userProfileId, userProfileName, userProfileLastName, userProfileRole, userProfilePhotoProfile,
-				userProfilePhotoCover, userProfileNationality, null);
+				userProfilePhotoCover, userProfileNationality, null, null);
 		// TODO Auto-generated constructor stub
 	}
 
