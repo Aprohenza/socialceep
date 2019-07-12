@@ -1,6 +1,6 @@
-<%@page import="com.formbean.session.UserSession"%>
-<%@ page import="com.formbean.session.SessionManager" %>
-<%@ page import="com.formbean.entity.LoginEntity" %>
+<%@page import="com.socialceep.session.UserSession"%>
+<%@ page import="com.socialceep.session.SessionManager" %>
+<%@ page import="com.socialceep.entity.LoginEntity" %>
 <%-- <%
 	essionDTO userSession = SessionManager.getUserSession(request);
 %> --%>
@@ -131,7 +131,7 @@ a:hover{
 				
 				//llamar al servidor para que cargue los post feed de la session
 				var xhr = new XMLHttpRequest();
-				xhr.open("GET", "http://localhost:8080/FormBeanSpringExample/post-feed/load", true);
+				xhr.open("GET", "${pageContext.request.contextPath}/post-feed/load", true);
 				xhr.send(null);
 				
 				xhr.onreadystatechange = function(){

@@ -3,6 +3,7 @@
 <html>
 <head>
 	<title>Social Ceep</title>
+	<link rel="icon" type="image/vnd.microsoft.icon" href="${pageContext.request.contextPath}/assets/img/ceep_logo_no_back.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 

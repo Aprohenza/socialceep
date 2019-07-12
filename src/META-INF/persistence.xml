@@ -3,23 +3,23 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/persistence"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
-	<persistence-unit name="FormBeanSpringExample">
-		<class>com.formbean.entity.LoginEntity</class>
-		<class>com.formbean.entity.ConversationsMessageEntity</class>
-		<class>com.formbean.entity.ConversationEntity</class>
-		<class>com.formbean.entity.MessageEntity</class>
-		<class>com.formbean.entity.RoleEntity</class>
-		<class>com.formbean.entity.UserEntity</class>
-		<class>com.formbean.entity.UserRoleEntity</class>
-		<class>com.formbean.entity.PostEntity</class>
-		<class>com.formbean.entity.FriendEntity</class>
-		<class>com.formbean.entity.PostCommentEntity</class>
-		<class>com.formbean.entity.AttachmentEntity</class>
-		<class>com.formbean.entity.UserConversationEntity</class>
-		<class>com.formbean.entity.CycleEntity</class>
-		<class>com.formbean.entity.CurseEntity</class>
-		<class>com.formbean.entity.SessionEntity</class>
-		<class>com.formbean.entity.CycleCurseSessionEntity</class>
+	<persistence-unit name="socialceep">
+		<class>com.socialceep.entity.LoginEntity</class>
+		<class>com.socialceep.entity.ConversationsMessageEntity</class>
+		<class>com.socialceep.entity.ConversationEntity</class>
+		<class>com.socialceep.entity.MessageEntity</class>
+		<class>com.socialceep.entity.RoleEntity</class>
+		<class>com.socialceep.entity.UserEntity</class>
+		<class>com.socialceep.entity.UserRoleEntity</class>
+		<class>com.socialceep.entity.PostEntity</class>
+		<class>com.socialceep.entity.FriendEntity</class>
+		<class>com.socialceep.entity.PostCommentEntity</class>
+		<class>com.socialceep.entity.AttachmentEntity</class>
+		<class>com.socialceep.entity.UserConversationEntity</class>
+		<class>com.socialceep.entity.CycleEntity</class>
+		<class>com.socialceep.entity.CurseEntity</class>
+		<class>com.socialceep.entity.SessionEntity</class>
+		<class>com.socialceep.entity.CycleCurseSessionEntity</class>
 		
 		
 		

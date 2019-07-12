@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@ page import="com.formbean.session.SessionManager" %>
-<%@ page import="com.formbean.entity.LoginEntity" %>
-<%@ page import="com.formbean.entity.UserEntity" %>
+<%@ page import="com.socialceep.session.SessionManager" %>
+<%@ page import="com.socialceep.entity.LoginEntity" %>
+<%@ page import="com.socialceep.entity.UserEntity" %>
 <%@ page import="org.springframework.ui.ModelMap" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>

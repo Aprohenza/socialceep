@@ -65,7 +65,7 @@ body {
 						<div
 							class="thread  <c:if test="${conversation.conversationThread == messages[0].messageConversationThread}">thread-selected</c:if>  message-hover border-bottom cursor-pointer d-flex align-items-center p-2">
 							<div>
-								<img src="${pageContext.request.contextPath}/images/${conversation.participantsConversation[0].userProfilePhotoProfile}" width="56" class="rounded-circle">
+								<img src="${pageContext.request.contextPath}/images/${conversation.participantsConversation[0].userProfilePhotoProfile}" width="56" height="56" class="rounded-circle">
 							</div>
 							<div class="px-2" style="flex: 1;">
 								<div class="d-flex justify-content-between" style="flex: 1;">
@@ -123,7 +123,7 @@ body {
 				<c:forEach var="messages" items="${messages}">
 					<div class="message-container d-flex flex-column pb-4">
 						<div style="z-index: 1;" class="px-2 d-flex align-items-start">
-							<img src="${pageContext.request.contextPath}/images/${messages.messageAuthorPhotoProfile}" width="40" class="rounded-circle message-author-photo">
+							<img src="${pageContext.request.contextPath}/images/${messages.messageAuthorPhotoProfile}" width="40"  height="40" class="rounded-circle message-author-photo">
 							<div style="margin-left: 10px;"	class="fw-600 message-author-name">
 								<span><a href="${pageContext.request.contextPath}/profile/${messages.messageAuthorId}/">${messages.messageAuthor}</a></span><span class="text-muted px-2">&middot;</span><small>${messages.messageDate}</small>
 							</div>

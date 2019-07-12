@@ -4,6 +4,7 @@
 <html>
 <head>
 	<title>Social Ceep</title>
+	<link rel="icon" type="image/vnd.microsoft.icon" href="${pageContext.request.contextPath}/assets/img/ceep_logo_no_back.ico">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 	<script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 
@@ -24,25 +25,6 @@
 				<div id="branding-header" class="col p-0 d-flex align-items-center">
 					<h3 class="m-0" style="color: #202c5a; font-weight: 900; font-family: arial;">CEEP</h3>
 				</div>
-				
-
-				<!-- <div class="d-flex justify-content-between align-items-center col p-0"> 					<div class="d-flex">
-						<div class="form-group mr-2">
-							<label class="small text-white" for="user-name">Correo electronico</label>
-    						<input style="box-shadow: none;" type="text" class="rounded-0 form-control form-control-sm" id="user-name" name="user-name" placeholder="Correo electronico">
-						</div>
-
-						<div class="form-group ml-2">
-							<label class="small text-white" for="user-password">Contraseña</label>
-    						<input style="box-shadow: none;" type="password" class="rounded-0 form-control form-control-sm" id="user-password" name="user-password" placeholder="Contraseña">
-						</div>
-					</div>
-					
-					<div class="form-group">
-						<label for="user-password" style="color: transparent;">&nbsp;&nbsp;&nbsp;</label>
-    					<input type="submit" class="form-control form-control-sm rounded-0" value="Entrar" style="box-shadow: none;">
-					</div>
-				</div> -->
 			</div>
 			
 		</div>
