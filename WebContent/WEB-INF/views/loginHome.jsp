@@ -54,11 +54,17 @@
 	</header>
 	<main class="d-flex justify-content-around align-items-center" style="height: 100vh;">
 		<div class="row p-0 m-0">
-			<section class="col p-0" id="branding"> <!-- bg-danger -->
+			<section class="col p-0 d-flex align-items-center" id="branding"> <!-- bg-danger -->
 				<img src="${pageContext.request.contextPath}/assets/img/ceep_25_years.png" width="420">
 			</section>
 
 			<section class="col px-4"> <!-- bg-success -->
+			
+				<div class="say-hi">
+					<h4>¿Eres nuevo en Social Ceep?</h4>
+					<h3>Registrate y conoce a tus compañeros</h3>
+				</div>
+				
 				<form:form modelAttribute="userRegistration" method="post" action="register">
 					<div class="col-12 d-flex flex-wrap p-0" id="form"> <!-- bg-primary -->
 						<div class="col-12 p-0 pb-2 m-0 d-flex">
@@ -84,7 +90,7 @@
 							</div>
 						</div>
 					
-						<div class="col-12 p-0 d-flex" id="gender-selector">
+						<div class="col-12 p-0 py-3 d-flex" id="gender-selector">
 							<div class="form-check form-check-inline">
 								<form:radiobutton path="userGenderRegistration" class="form-check-input" value="FEMALE"/>
 								<label class="form-check-label" for="userGenderRegistration1">Mujer</label>
@@ -99,7 +105,7 @@
 					
 	
 						<div class="form-group">
-		    				<input type="submit" class="form-control form-control-sm rounded-0" value="Registrate" style="box-shadow: none;">
+		    				<input type="submit" class="form-control form-control-sm rounded-0 btn" value="Registrate" style="box-shadow: none;">
 						</div>
 					</div>
 				</form:form>

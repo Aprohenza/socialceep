@@ -56,7 +56,7 @@
 					<a href="${pageContext.request.contextPath}/profile/${friend.userProfileId}/">
 						<div class="d-flex align-items-start">
 							<div>
-								<div><img src="${pageContext.request.contextPath}/images/${friend.userProfilePhotoProfile}" class="rounded-circle" width="72"></div>
+								<div><img src="${pageContext.request.contextPath}/images/${friend.userProfilePhotoProfile}" class="rounded-circle" width="72" height="72"></div>
 							</div>
 							<div class="px-2">
 								<div class="d-flex flex-column">

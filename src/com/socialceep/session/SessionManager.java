@@ -8,7 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.stereotype.Component;
+
 
 import com.socialceep.encoder.PasswordEncoderGenerator;
 import com.socialceep.entity.LoginEntity;
@@ -18,10 +18,13 @@ import com.socialceep.form.UserLoginForm;
 public class SessionManager {
 
 	
-	private UserSession uSession;
+	
 	
 
-	public void openSession(HttpServletRequest request, UserLoginForm user) throws NoResultException {
+	public UserSession openSession(HttpServletRequest request, UserLoginForm user) throws NoResultException {
+		
+		UserSession uSession = null;
+		
 		String email = user.getEmailUser();
 		String passwordEncoded = PasswordEncoderGenerator.encode(user.getPasswordUser());
 
@@ -36,26 +39,32 @@ public class SessionManager {
 
 		LoginEntity le = loginEntity.getSingleResult();
 		
-		uSession = new UserSession();
+		if(le.getLoginStatus() != 0) {
+			//usuario activado
+			uSession = new UserSession();
 
-		uSession.setUserProfileId(le.getUser().getUserId()); // user id
-		uSession.setUserProfileName(le.getUser().getUserName()); // name
-		uSession.setUserProfileLastName(le.getUser().getUserLastname()); // last name
-		uSession.setUserProfileRole(le.getUser().getUserRole().getRole().getRoleName()); // role
-		uSession.setUserProfileNationality(le.getUser().getUserNationality()); // nationality
-		uSession.setUserProfilePhotoProfile(Long.toString(le.getUser().getUserPhotoProfile())); // photo profile
-		uSession.setUserProfilePhotoCover(Long.toString(le.getUser().getUserPhotoCover())); // photo cover
-		//uSession.setUserProfileCycle(le.getUser().getCycleCurseSessionEntity().getCycle().getCycleName()); // ciclo
-		uSession.setUserProfilePhone(le.getUser().getUserPhone()); // phone
-		
-		
-		// carga de amigos de la session
-		Runnable userFriendSessionLoadInit = new UserFriendSessionLoad(uSession);
-		new Thread(userFriendSessionLoadInit).start();
-		
-		request.getSession().setAttribute("uSession", uSession);
+			uSession.setUserProfileId(le.getUser().getUserId()); // user id
+			uSession.setUserProfileName(le.getUser().getUserName()); // name
+			uSession.setUserProfileLastName(le.getUser().getUserLastname()); // last name
+			uSession.setUserProfileRole(le.getUser().getUserRole().getRole().getRoleName()); // role
+			uSession.setUserProfileNationality(le.getUser().getUserNationality()); // nationality
+			uSession.setUserProfilePhotoProfile(Long.toString(le.getUser().getUserPhotoProfile())); // photo profile
+			uSession.setUserProfilePhotoCover(Long.toString(le.getUser().getUserPhotoCover())); // photo cover
+			//uSession.setUserProfileCycle(le.getUser().getCycleCurseSessionEntity().getCycle().getCycleName()); // ciclo
+			uSession.setUserProfilePhone(le.getUser().getUserPhone()); // phone
+			
+			
+			// carga de amigos de la session
+			Runnable userFriendSessionLoadInit = new UserFriendSessionLoad(uSession);
+			new Thread(userFriendSessionLoadInit).start();
+			
+			request.getSession().setAttribute("uSession", uSession);
 
-		System.out.println("uSession CREADO EXITOSAMENTE!!!");
+			System.out.println("uSession CREADO EXITOSAMENTE!!!");
+			
+		}
+		
+		return uSession;
 
 	}
 

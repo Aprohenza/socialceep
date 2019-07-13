@@ -1,8 +1,12 @@
 package com.socialceep.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,14 +14,21 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.socialceep.form.model.UserRegistrationRequestNonReferrer;
+import com.socialceep.form.UserRegistrationRequestNonReferrerForm;
 import com.socialceep.mailing.JwtGenerator;
 import com.socialceep.mailing.MailManager;
+import com.socialceep.validator.RegisterFormValidator;
 
 @Controller
 public class UserRegistrationRequestNonReferrerController {
 	
+	@Autowired
+	private RegisterFormValidator registerFormValidator;
 	
+	@InitBinder("userRegistration")
+	 protected void initUserRegistrationBinder(WebDataBinder binder) {
+		 binder.addValidators(registerFormValidator);		
+	}
 
 	@RequestMapping(value = "/register/{status}", method = RequestMethod.GET)
 	public ModelAndView registerGet(ModelMap model, @PathVariable("status") String status, @ModelAttribute(value = "accessValidate") String accessValidate) {
@@ -34,8 +45,11 @@ public class UserRegistrationRequestNonReferrerController {
 
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public ModelAndView register(
-			@ModelAttribute("userRegistration") UserRegistrationRequestNonReferrer userRegistration,
+			@ModelAttribute("userRegistration") @Validated UserRegistrationRequestNonReferrerForm userRegistration,
 			BindingResult result, ModelMap model, RedirectAttributes redirectAttributes) {
+		
+		if (result.hasErrors())
+			return new ModelAndView("redirect:/login");
 		
 		redirectAttributes.addFlashAttribute("accessValidate", userRegistration.getUserEmailRegistration());
 		

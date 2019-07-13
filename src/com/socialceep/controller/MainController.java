@@ -1,15 +1,10 @@
 package com.socialceep.controller;
 
-import java.util.List;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -17,26 +12,23 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.socialceep.dao.CycleCurseSessionDao;
 import com.socialceep.dao.UserDao;
 import com.socialceep.dto.UserProfileDto;
-import com.socialceep.entity.CycleCurseSessionEntity;
-import com.socialceep.entity.LoginEntity;
 import com.socialceep.entity.UserEntity;
 import com.socialceep.form.PostModelForm;
 import com.socialceep.form.UserLoginForm;
-import com.socialceep.form.model.UserRegistrationRequestNonReferrer;
-import com.socialceep.session.PostToFeedUserSessionLoad;
+import com.socialceep.form.UserRegistrationRequestNonReferrerForm;
 import com.socialceep.session.SessionManager;
 import com.socialceep.session.UserFriendSessionLoad;
 import com.socialceep.session.UserFriendsSession;
-import com.socialceep.session.UserOwnPost;
 import com.socialceep.session.UserSession;
 import com.socialceep.validator.LoginValidator;
 
@@ -45,22 +37,29 @@ public class MainController {
 
 	@Autowired
 	private LoginValidator loginValidator;
+	
+	
 
 	private UserSession uSession;
 
-	/*
-	 * @InitBinder protected void initBinder(WebDataBinder binder) {
-	 * binder.addValidators(loginValidator); }
-	 */
+	
+	 @InitBinder("user")
+	 protected void initUserLoginFormBinder(WebDataBinder binder) {
+		 binder.addValidators(loginValidator);		
+	}
+	 
+	 
+	
 
 	@RequestMapping(value = { "/", "/login" }, method = RequestMethod.GET)
 	public String showLogingUserForm(Model model) {
-		model.addAttribute("user", new UserLoginForm());
-		model.addAttribute("userRegistration", new UserRegistrationRequestNonReferrer());
+		
+		model.addAttribute("user", new UserLoginForm());		
+		model.addAttribute("userRegistration", new UserRegistrationRequestNonReferrerForm());
 
-		model.addAttribute("bornDay", UserRegistrationRequestNonReferrer.DAY);
-		model.addAttribute("bornMonth", UserRegistrationRequestNonReferrer.MONTH);
-		model.addAttribute("bornYear", UserRegistrationRequestNonReferrer.YEAR);
+		model.addAttribute("bornDay", UserRegistrationRequestNonReferrerForm.DAY);
+		model.addAttribute("bornMonth", UserRegistrationRequestNonReferrerForm.MONTH);
+		model.addAttribute("bornYear", UserRegistrationRequestNonReferrerForm.YEAR);
 
 		return "loginHome";
 	}
@@ -74,7 +73,13 @@ public class MainController {
 
 		try {
 			SessionManager sManager = new SessionManager();
-			sManager.openSession(request, user);
+			UserSession uSession = sManager.openSession(request, user);
+			
+			if(uSession ==null)
+				return "waiting-validation";
+				
+			
+			
 		} catch (NoResultException ex) {
 			System.out.println("Login incorrecto para usuario: " + user.getEmailUser());
 			result.rejectValue("emailUser", "user.login.invalid");
