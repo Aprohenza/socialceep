@@ -465,22 +465,29 @@ body {
 						//send message ajax
 						$('form[name="message"]').submit(function(e) {
 							e.preventDefault();
+							var messageRecipient = $('input[name="messageRecipient"]', this).val();
 							var formData = new FormData();
 							formData.append("messageBody", $('textarea[name="messageBody"]', this).val());
 							formData.append("messageThread", $('input[name="messageThread"]', this).val());
-							formData.append("messageRecipient", $('input[name="messageRecipient"]', this).val());
+							formData.append("messageRecipient", messageRecipient);
 							$.ajax({
 								url : '${pageContext.request.contextPath}/messaging/insert',
 								type : 'POST',
 								processData : false,
 								contentType : false,
 								data : formData,
-								data : formData,
+								
 								
 								success : function(messages) {													
-									console.log(messages);
-									$('#story').append('<jsp:include page="../views/tiles/message_item.jsp" />');
-									$('#box-message').val('');
+									console.log(messageRecipient);
+									if(messageRecipient!=null && messageRecipient!=''){
+										console.log("akii");
+										window.location.href = '${pageContext.request.contextPath}/messaging';
+									}else{
+										$('#story').append('<jsp:include page="../views/tiles/message_item.jsp" />');
+										$('#box-message').val('');
+									}
+									
 								},
 								error : function(jqXHR, textStatus, errorThrown) {
 									console.log(jqXHR.status, textStatus, errorThrown);

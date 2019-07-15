@@ -85,7 +85,7 @@ public class UserFriendSessionLoad implements Runnable {
 		MyWebScket.sendMessageToClient(this.uSession.getUserFriendsSession(), "sessionFriends",
 				uSession.getUserProfileId());
 		
-		//sugerencias de amitad
+		//sugerencias de amistad
 		List<UserFriendsSuggestion> friendsSuggestion = UserDao.getFriendsSuggestion(uSession, UserDao.getUserById(uSession.getUserProfileId()).getUserCycle());
 		
 		System.out.println("SUGERENCIAS DE AISTAD DE LA SESSION: " + friendsSuggestion);

@@ -51,9 +51,9 @@
 				</div>
 			</a>
 			<section id="publi" class="p-2">
-				<div class="bg-primary">
-					<a href="https://www.grupoceep.com/becas-oficiales-para-estudios-de-formacion-profesional/becas-oficiales-para-fp-del-ministerio-de-educacion/">
-					<img src="https://www.grupoceep.com/wp-content/uploads/2018/01/BECAS-FP-MEC.jpg" class="col-12 p-0">
+				<div class="bg-white d-flex justify-content-center">
+					<a href="">
+					<img style="width: 120px;" src="${pageContext.request.contextPath}/assets/img/ceep_logo_no_back.png" class="col-12 p-0">
 					</a>
 				</div>
 			</section>

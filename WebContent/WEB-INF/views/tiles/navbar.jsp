@@ -36,13 +36,25 @@ a:hover{
 									<i class="fas fa-users fa-lg nav-item-pointer"></i>
 									<small class="nav-item-pointer">Mi red</small>
 									
+									<div id="red-notification" class="d-none justify-content-center align-items-center" style="padding: 5px; font-weight: 600; position: absolute; top: -5px; right: 0; background: #d11124; width: 15px; height: 15px; border-radius: 50%;">
+										<span id="red-notification-counter">0</span>
+									</div>
+								</div>
+							</div>
+						</a>
+						
+						<a style="text-decoration: none; color: white; flex:1;" href="${pageContext.request.contextPath}/messaging">
+							<div class="d-flex flex-column, justify-content-center align-items-center">	
+								<div id="mensajes" class="nav-item d-flex flex-column align-items-center" style="position: relative;">
+									<i class="fas fa-envelope fa-lg nav-item-pointer"></i>
+									<small class="nav-item-pointer">Mensajes</small>
 									<div id="message-notification" class="d-none justify-content-center align-items-center" style="padding: 5px; font-weight: 600; position: absolute; top: -5px; right: 0; background: #d11124; width: 15px; height: 15px; border-radius: 50%;">
 										<span id="message-notification-counter">0</span>
 									</div>
 								</div>
 							</div>
 						</a>
-						<a style="text-decoration: none; color: white; flex:1;" href="${pageContext.request.contextPath}/messaging"><div id="mensajes" class="nav-item d-flex flex-column align-items-center"><i class="fas fa-envelope fa-lg nav-item-pointer"></i><small class="nav-item-pointer">Mensajes</small></div></a>
+						
 						<a style="text-decoration: none; color: white; flex:1;" href="${pageContext.request.contextPath}/notifications"><div id="notificaciones" class="nav-item d-flex flex-column align-items-center"><i class="fas fa-bell fa-lg nav-item-pointer"></i><small class="nav-item-pointer">Notificaciones</small></div></a>
 						<div style="flex: 1;" id="yo" class="nav-item d-flex flex-column align-items-center"><img src="${pageContext.request.contextPath}/images/${uSession.userProfilePhotoProfile}" width="24" height="24" class="rounded-circle cursor-pointer"><small class="cursor-pointer">Yo</small></div> <!-- bg-primary -->
 					</nav>
@@ -190,6 +202,8 @@ a:hover{
 			if(event.data.contentType == 'newMessageChat'){
 				console.log("tengo nuevo mensaje");
 				renderNewMessage(event.data.content);
+				
+				
 			}
 			
 			if(event.data.contentType == 'newFriendRequest'){
@@ -198,35 +212,34 @@ a:hover{
 				
 				//llamar al servidor para que recarge las friends request de la sesison
 				var xhr = new XMLHttpRequest();
-				xhr.open("POST", "http://192.168.1.40:8080/FormBeanSpringExample/mynetwork/friendrequest/all", true);
+				xhr.open("POST", "${pageContext.request.contextPath}/mynetwork/friendrequest/all", true);
 				xhr.send(null);
 				
 				xhr.onreadystatechange = function(){
 					if(xhr.readyState == 4 && xhr.status == 200){
 						console.log("Lanzada solicitud de componentes de la session.");
-						localStorage.setItem("sessionStatus", 2);
+						
 					}else{
 						console.log("Error en la peticion. Status: " + xhr.status + ". Text: " + xhr.statusText);						
 					}
 				}
 				
-				count = $('#message-notification>#message-notification-counter').text();
-				$('#message-notification>#message-notification-counter').html(parseInt(count) + 1);
+				count = $('#red-notification>#red-notification-counter').text();
+				$('#red-notification>#red-notification-counter').html(parseInt(count) + 1);
 				
-				$('#message-notification').addClass('d-flex');
+				$('#red-notification').addClass('d-flex');
 			}
 			
 			if(event.data.contentType == 'acceptedFriendRequest'){
 				if(event.data.content == 1){
 					//llamar al servidor para que recarge los amigos de las sesion
 					var xhr = new XMLHttpRequest();
-					xhr.open("POST", "http://192.168.1.40:8080/FormBeanSpringExample/mynetwork/connections/reload", true);
+					xhr.open("POST", "${pageContext.request.contextPath}/mynetwork/connections/reload", true);
 					xhr.send(null);
 					
 					xhr.onreadystatechange = function(){
 						if(xhr.readyState == 4 && xhr.status == 200){
-							console.log("Lanzada solicitud de componentes de la session.");
-							localStorage.setItem("sessionStatus", 2);
+							console.log("Lanzada recarga  de amigos de la session.");
 						}else{
 							console.log("Error en la peticion. Status: " + xhr.status + ". Text: " + xhr.statusText);						
 						}
@@ -248,7 +261,10 @@ a:hover{
 		if(window.location.pathname.includes("messaging/thread")){
 			$('#story').append('<jsp:include page="message_item.jsp" />');	
 		}else{
-			alert("Tienes un nuevo mensaje.");
+			count = $('#message-notification>#message-notification-counter').text();
+			$('#message-notification>#message-notification-counter').html(parseInt(count) + 1);
+			
+			$('#message-notification').addClass('d-flex');
 		}
 		
 	}

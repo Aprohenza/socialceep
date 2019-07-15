@@ -11,6 +11,7 @@ import javax.persistence.TypedQuery;
 import com.socialceep.dto.UserProfileDto;
 import com.socialceep.entity.ConversationEntity;
 import com.socialceep.entity.UserEntity;
+import com.socialceep.session.UserFriendsSession;
 import com.socialceep.session.UserFriendsSuggestion;
 import com.socialceep.session.UserSession;
 
@@ -95,6 +96,21 @@ public class UserDao implements Runnable {
 				usersFriendsSuggestion.add(uFriendSuggestion);
 			}
 		}
+		
+		List<UserFriendsSuggestion> suggestionToRemove = new ArrayList<UserFriendsSuggestion>();
+		
+		for(UserFriendsSuggestion u: usersFriendsSuggestion) {
+			for(UserFriendsSession userFriends : uSession.getUserFriendsSession()) {
+				if(u.getUserProfileId().equals(userFriends.getUserProfileId())) {
+					suggestionToRemove.add(u);
+					
+				}
+				
+			}
+			
+		}
+		
+		usersFriendsSuggestion.removeAll(suggestionToRemove);
 		
 		
 		

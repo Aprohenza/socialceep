@@ -59,8 +59,8 @@
 								<div><img src="${pageContext.request.contextPath}/images/${friend.userProfilePhotoProfile}" class="rounded-circle" width="72" height="72"></div>
 							</div>
 							<div class="px-2">
-								<div class="d-flex flex-column">
-									<span class="fw-600 lh-8">${friend.userProfileName} ${friend.userProfileLastName}</span><span class="text-muted">${friend.userProfileRole}</span>	
+								<div class="d-flex align-items-center">
+									<span class="fw-600 lh-8">${friend.userProfileName} ${friend.userProfileLastName}</span><span class="px-2"> &middot; </span><span class="text-muted">${friend.userProfileRole}</span>	
 								</div>
 								<div>
 									<span>Desarrollo de aplicaciones multiplataformas</span>

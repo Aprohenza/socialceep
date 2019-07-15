@@ -1,6 +1,8 @@
 package com.socialceep.session;
 
 
+import java.util.HashMap;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
@@ -18,7 +20,9 @@ import com.socialceep.form.UserLoginForm;
 public class SessionManager {
 
 	
+	private static HashMap<String, UserSession> sessions = new HashMap<>();
 	
+
 	
 
 	public UserSession openSession(HttpServletRequest request, UserLoginForm user) throws NoResultException {
@@ -59,6 +63,8 @@ public class SessionManager {
 			new Thread(userFriendSessionLoadInit).start();
 			
 			request.getSession().setAttribute("uSession", uSession);
+			
+			sessions.put(uSession.getUserProfileId(), uSession);
 
 			System.out.println("uSession CREADO EXITOSAMENTE!!!");
 			
@@ -67,32 +73,18 @@ public class SessionManager {
 		return uSession;
 
 	}
-
-	/*
-	 * public void loadSessionComponents() { // carga de componentes de la session
-	 * 
-	 * // carga de post donde la session es author Runnable
-	 * userOwnPostSessionLoadInit = this.userOwnPostSessionLoad; new
-	 * Thread(userOwnPostSessionLoadInit).start();
-	 * 
-	 * // carga de amigos de la session Runnable userFriendSessionLoadInit =
-	 * this.userFriendSessionLoad; new Thread(userFriendSessionLoadInit).start();
-	 * 
-	 * // carga de solicitudes de amistad de la session Runnable
-	 * userFriendsRequestSessionLoadInit = this.userFriendsRequestSessionLoad; new
-	 * Thread(userFriendsRequestSessionLoadInit).start();
-	 * 
-	 * }
-	 */
 	
 
 	public UserSession getUserSession(HttpServletRequest request) {
 		return (UserSession) request.getSession().getAttribute("uSession");
 	}
 
-	public void closeUserSession(HttpServletRequest request) {
-		//this.uSession = null;
+	public void closeUserSession(HttpServletRequest request) {		
 		request.getSession(false).invalidate();
+	}
+	
+	public static HashMap<String, UserSession> getSessions() {
+		return sessions;
 	}
 
 }

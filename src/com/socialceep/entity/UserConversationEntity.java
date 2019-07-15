@@ -21,8 +21,10 @@ import org.hibernate.annotations.LazyCollectionOption;
 @Entity
 @Table(name = "USERS_CONVERSATIONS")
 @NamedQueries({
-	@NamedQuery(name = "UserConversationEntity.findAll", query = "SELECT uC FROM UserConversationEntity uC")
+	@NamedQuery(name = "UserConversationEntity.findAll", query = "SELECT uC FROM UserConversationEntity uC"),
+	@NamedQuery(name = "UserConversationEntity.findByConversationThread", query = "SELECT uC FROM UserConversationEntity uC WHERE uC.conversationThread = :conversationThread")
 })
+
 public class UserConversationEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
