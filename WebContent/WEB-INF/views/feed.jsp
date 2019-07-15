@@ -43,7 +43,7 @@
 					class="bg-info feed-identity-module profile-rail-card container ember-view">
 					<div
 						class="d-flex justify-content-center flex-column align-items-center">
-						<img class="rounded-circle mt-4" alt="Aldo Prohenza" height="64"
+						<img class="rounded-circle mt-4" alt="${uSession.userProfileName} ${uSession.userProfileLastName}" height="64"
 							width="64"
 							src="${pageContext.request.contextPath}/images/${uSession.userProfilePhotoProfile}">
 						<span class="text-center" style="font-weight: 600;">¡Te
@@ -355,14 +355,22 @@
 			console.log("NO HAY POST EN EL CLIENTE. PREPARANDO PETICION AL SERVER...");
 			 if(sessionStorage.sessionFriends != null){
 				console.log("HAY FRIENDS EN EL CLIENTE. SOLICITANDO SOLO LOS FEED POST...");
-				$.ajax({
-					type: 'GET',
-					url: '${pageContext.request.contextPath}/post-feed/load',
-					success: function(respuesta) {},
-					error: function(jqXHR, textStatus, errorThrown) {
-				       console.log(jqXHR.status, textStatus, errorThrown);
-				   }
-				})
+				//evaluar si los friends tienen elementos
+				console.log("cantidad de amigos: " + sessionStorage.sessionFriends.length);
+				if(JSON.parse(sessionStorage.sessionFriends).length > 0){
+					$.ajax({
+						type: 'GET',
+						url: '${pageContext.request.contextPath}/post-feed/load',
+						success: function(respuesta) {},
+						error: function(jqXHR, textStatus, errorThrown) {
+					       console.log(jqXHR.status, textStatus, errorThrown);
+					   }
+					})
+				}else{
+					console.log("LA SESSION NO TIENE AMIGOS, POR LO Q TAMPOCO POST...");
+					renderizePost();
+				}
+				
 				
 			} else{
 				console.log("NO HAY FRIENDS EN EL CLIENTE. SOLICITANDO CARGA COMPLETA...");
@@ -388,27 +396,34 @@
 		$('#new-post').removeClass('d-none');
 		$('#posts-container').removeClass('d-none');
 		
-		var posts = JSON.parse(sessionStorage.posts);
-		
-		//console.log(posts);
-		
-		if(posts.length != 0){
-			posts.forEach(function(post) {
-				if (post.postAttachment != null) {
-					if (post.postAttachment.attachmentPath == 'files') {
-						extension = post.postAttachment.attachmentName.split('.').pop() + '.svg';
-						$('#posts-container').append('<jsp:include page="../views/tiles/post_item_with_files.jsp" />');
+		var posts;
+		if(sessionStorage.posts!=null){
+			posts = JSON.parse(sessionStorage.posts);
+			
+			if(posts.length != 0){
+				posts.forEach(function(post) {
+					if (post.postAttachment != null) {
+						if (post.postAttachment.attachmentPath == 'files') {
+							extension = post.postAttachment.attachmentName.split('.').pop() + '.svg';
+							$('#posts-container').append('<jsp:include page="../views/tiles/post_item_with_files.jsp" />');
+						} else {
+							$('#posts-container').append('<jsp:include page="../views/tiles/post_item.jsp" />');
+						}
 					} else {
-						$('#posts-container').append('<jsp:include page="../views/tiles/post_item.jsp" />');
+						$('#posts-container').append('<jsp:include page="../views/tiles/post_item_no_attachment.jsp" />');
 					}
-				} else {
-					$('#posts-container').append('<jsp:include page="../views/tiles/post_item_no_attachment.jsp" />');
-				}
 
-			})
+				})
+			}else{
+				$('#posts-container').append('<jsp:include page="../views/tiles/post_welcome.jsp" />');
+			}
 		}else{
 			$('#posts-container').append('<jsp:include page="../views/tiles/post_welcome.jsp" />');
 		}
+		
+		//console.log(posts);
+		
+		
 	}
 	
 	function addNewPost(post){

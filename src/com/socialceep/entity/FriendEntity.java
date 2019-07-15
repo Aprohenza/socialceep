@@ -14,6 +14,7 @@ import java.util.Date;
 	@NamedQuery(name = "FriendEntity.findAll", query = "SELECT f FROM FriendEntity f"),
 	@NamedQuery(name = "FriendEntity.findAllFriendsRequest", query = "SELECT f FROM FriendEntity f WHERE f.friendUserInvited=:friendUserInvited AND f.friendRequestStatus='PENDING'"),
 	@NamedQuery(name = "FriendEntity.findAllFriends", query = "SELECT f FROM FriendEntity f WHERE f.friendUserInvited=:uSessionId AND f.friendRequestStatus='ACCEPTED' OR f.friendUserRequest=:uSessionId AND f.friendRequestStatus='ACCEPTED'")
+	
 })
 public class FriendEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

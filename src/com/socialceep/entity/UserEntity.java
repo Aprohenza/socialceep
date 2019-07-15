@@ -12,7 +12,9 @@ import java.util.List;
 @Entity
 @Table(name = "USERS")
 @NamedQueries({ @NamedQuery(name = "UserEntity.findAll", query = "SELECT u FROM UserEntity u"),
-		@NamedQuery(name = "UserEntity.findUsersWithMatch", query = "SELECT u FROM UserEntity u WHERE u.userName LIKE :userMatch OR u.userLastname LIKE :userMatch") })
+		@NamedQuery(name = "UserEntity.findUsersWithMatch", query = "SELECT u FROM UserEntity u WHERE u.userName LIKE :userMatch OR u.userLastname LIKE :userMatch"),
+		@NamedQuery(name = "UserEntity.findFriendsSuggestion", query = "SELECT u FROM UserEntity u WHERE u.userCycle = :userCycle ")
+})
 
 public class UserEntity implements Serializable {
 	private static final long serialVersionUID = 1L;

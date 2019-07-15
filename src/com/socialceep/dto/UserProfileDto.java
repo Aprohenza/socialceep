@@ -1,6 +1,6 @@
 package com.socialceep.dto;
 
-import com.socialceep.entity.CycleCurseSessionEntity;
+
 
 public class UserProfileDto {
 
@@ -39,7 +39,7 @@ public class UserProfileDto {
 	 */
 	public UserProfileDto(String userProfileId, String userProfileName, String userProfileLastName,
 			String userProfileRole, String userProfilePhotoProfile, String userProfilePhotoCover,
-			String userProfileNationality, String userProfileEmail, String userProfileCycle) {
+			String userProfileNationality, String userProfileEmail, String userProfilePhone, String userProfileCycle) {
 		this.userProfileId = userProfileId;
 		this.userProfileName = userProfileName;
 		this.userProfileLastName = userProfileLastName;
@@ -47,7 +47,8 @@ public class UserProfileDto {
 		this.userProfileNationality = userProfileNationality;
 		this.userProfilePhotoProfile = userProfilePhotoProfile;
 		this.userProfilePhotoCover = userProfilePhotoCover;
-		this.userProfileEmail = userProfileEmail;		
+		this.userProfileEmail = userProfileEmail;
+		this.userProfilePhone = userProfilePhone;
 		this.userProfileCycle = userProfileCycle;
 	}
 

@@ -17,8 +17,8 @@ a:hover{
 						<div id="search-brand"><img src="${pageContext.request.contextPath}/assets/img/siglas-215x70.png" width="90"></div>
 						<div style="width: 60%; position: relative;" id="search-field">
 							<input style="box-shadow: none;" class="form-control form-control-sm rounded-0" type="text" name="search-input" id="search-input" placeholder="Busqueda">
-							<div id="ember2517" class="border bg-white d-none p-0" style="position: absolute; z-index: 2; width: 120%;">
-								jnfskjdnnfjknsdjkfnjksdnjfnj
+							<div id="ember2510" class="border bg-white d-none p-0" style="position: absolute; z-index: 2; width: 120%;">
+								Cargando...
 							</div>
 						</div>
 					</section>
@@ -78,9 +78,9 @@ a:hover{
 				type : 'GET',
 				url : '${pageContext.request.contextPath}/search/user/' + $(this).val(),
 				success : function(response) {
-					$('#ember2517').html('');
+					$('#ember2510').html('');
 					JSON.parse(response).forEach(function(user){
-						$('#ember2517').append('<a href="${pageContext.request.contextPath}/profile/'+user.userProfileId+'/"><div class="bg-white border-bottom p-2 contact" style="cursor: pointer;"><div class="d-flex align-items-center justify-content-between  p-2"><div class="d-flex align-items-center"><div><div><img src="${pageContext.request.contextPath}/images/'+user.userProfilePhotoProfile+'" class="rounded-circle" width="36"></div></div><div class="px-2"><div><span class="fw-600 lh-8">'+user.userProfileName+' '+user.userProfileLastName+'</span><span class="px-2">&middot;</span><span class="text-muted">'+user.userProfileRole+'</span></div><div><span>Desarrollo de aplicaciones multiplataformas</span></div></div></div></div></div></a>');	
+						$('#ember2510').append('<a href="${pageContext.request.contextPath}/profile/'+user.userProfileId+'/"><div class="bg-white border-bottom p-2 contact" style="cursor: pointer;"><div class="d-flex align-items-center justify-content-between  p-2"><div class="d-flex align-items-center"><div><div><img src="${pageContext.request.contextPath}/images/'+user.userProfilePhotoProfile+'" class="rounded-circle" width="36"></div></div><div class="px-2"><div><span class="fw-600 lh-8">'+user.userProfileName+' '+user.userProfileLastName+'</span><span class="px-2">&middot;</span><span class="text-muted">'+user.userProfileRole+'</span></div><div><span>Desarrollo de aplicaciones multiplataformas</span></div></div></div></div></div></a>');	
 					})
 					
 					
@@ -90,18 +90,18 @@ a:hover{
 					console.log(jqXHR.status, textStatus, errorThrown);
 				}
 			});
-			$('#ember2517').removeClass('d-none');
+			$('#ember2510').removeClass('d-none');
 		}else{
-			$('#ember2517').addClass('d-none');
+			$('#ember2510').addClass('d-none');
 		}
 			
 	})
 
 	$('body').click(function(){
-		$('#ember2517').addClass('d-none');
+		$('#ember2510').addClass('d-none');
 	})
 
-	$('#ember2517').click(function(e){
+	$('#ember2510').click(function(e){
 		e.stopPropagation();
 	})
 	
@@ -130,17 +130,24 @@ a:hover{
 				console.log("sessionFriends guardado.");
 				
 				//llamar al servidor para que cargue los post feed de la session
-				var xhr = new XMLHttpRequest();
-				xhr.open("GET", "${pageContext.request.contextPath}/post-feed/load", true);
-				xhr.send(null);
-				
-				xhr.onreadystatechange = function(){
-					if(xhr.readyState == 4 && xhr.status == 200){
-						console.log("Lanzada solicitud de post feed de la session.");						
-					}else{
-						console.log("Error en la peticion. Status: " + xhr.status + ". Text: " + xhr.statusText);						
+				if(JSON.parse(sessionStorage.sessionFriends).length > 0){
+					console.log("comprobado la cantidad de amigos de la session: " + sessionStorage.sessionFriends.length);
+					var xhr = new XMLHttpRequest();
+					xhr.open("GET", "${pageContext.request.contextPath}/post-feed/load", true);
+					xhr.send(null);
+					
+					xhr.onreadystatechange = function(){
+						if(xhr.readyState == 4 && xhr.status == 200){
+							console.log("Lanzada solicitud de post feed de la session.");						
+						}else{
+							console.log("Error en la peticion. Status: " + xhr.status + ". Text: " + xhr.statusText);						
+						}
 					}
+				}else{
+					console.log("la session no tiene amigos.");
+					renderizePost();
 				}
+				
 			}
 			
 			if(event.data.contentType == 'posts'){
@@ -154,6 +161,12 @@ a:hover{
 				sessionStorage.setItem("sessionFriendsRequest", JSON.stringify(event.data.content));
 				console.log("Contenido de fiends request guardado.");
 				renderAllFriendRequest(JSON.parse(sessionStorage.sessionFriendsRequest));
+			}
+			
+			if(event.data.contentType == 'sessionFriendsSuggestion'){
+				sessionStorage.setItem("sessionFriendsSuggestion", JSON.stringify(event.data.content));
+				console.log("Contenido de fiends suggestion guardado.");
+				//renderAllFriendRequest(JSON.parse(sessionStorage.sessionFriendsRequest));
 			}
 			
 			if(event.data.contentType == 'conversations'){

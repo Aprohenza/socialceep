@@ -8,33 +8,25 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import javax.servlet.http.HttpServletRequest;
 
-import org.hibernate.Hibernate;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.socialceep.dao.MessageDao;
+
 import com.socialceep.dao.UserDao;
-import com.socialceep.dto.FriendRequestModel;
 import com.socialceep.entity.FriendEntity;
 import com.socialceep.entity.UserEntity;
-import com.socialceep.form.NewMessageFromMessaging;
-import com.socialceep.session.SessionManager;
 import com.socialceep.session.UserFriendSessionLoad;
 import com.socialceep.session.UserFriendsRequestSession;
 import com.socialceep.session.UserFriendsRequestSessionLoad;
 import com.socialceep.session.UserFriendsSession;
-import com.socialceep.session.UserOwnPostSessionLoad;
 import com.socialceep.session.UserSession;
 
 @Controller
@@ -174,7 +166,7 @@ public class MyNetworkController {
 		 * ENVIAR SOLICITUD DE USUARIO CON ID "userInvitedId"
 		 */
 
-		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		//SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
 		Long sysDate = System.currentTimeMillis();
 

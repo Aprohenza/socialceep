@@ -29,6 +29,7 @@ import com.socialceep.dao.CycleCurseSessionDao;
 import com.socialceep.dao.CycleDao;
 import com.socialceep.dao.LoginDao;
 import com.socialceep.dao.UserDao;
+import com.socialceep.dao.UserRoleDao;
 import com.socialceep.dto.FormativeCycleForm;
 import com.socialceep.encoder.PasswordEncoderGenerator;
 import com.socialceep.entity.CurseEntity;
@@ -231,15 +232,24 @@ public class OnBoardingController {
 		System.out.println("CICLO DE USUARIO A GUARDAR: " + userCycle);
 		
 		String userYearGraduate = null;
+		String userRole = "ESTUDIANTE"; // estudiante
+		
 		
 		String year = (String) request.getSession().getAttribute("finished-year");
 		
-		if(year != null && !year.equals(""))
+		if(year != null && !year.equals("") && !year.equals("0")) {
 			userYearGraduate = year;
+			userRole = "GRADUADO";// graduado
+		}
+			
 		
 
 		UserDao.createNewUser(loginId, name, lastname, gender, null, loginEmail, null,
 				null, userCycle, userYearGraduate, dateFormat.format(new Date()), null, null);
+		
+		UserRoleDao.createNewUserRole(loginId, userRole);
+		
+		
 
 		return new ResponseEntity<Void>(HttpStatus.OK);
 

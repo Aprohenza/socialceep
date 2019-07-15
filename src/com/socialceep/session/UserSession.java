@@ -6,13 +6,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.WebApplicationContext;
 
 import com.socialceep.dto.UserProfileDto;
-import com.socialceep.entity.ConversationEntity;
 import com.socialceep.entity.UserEntity;
 
 @Component
@@ -44,7 +41,7 @@ public class UserSession extends UserProfileDto{
 	public UserSession(String userProfileId, String userProfileName, String userProfileLastName, String userProfileRole,
 			String userProfilePhotoProfile, String userProfilePhotoCover, String userProfileNationality) {
 		super(userProfileId, userProfileName, userProfileLastName, userProfileRole, userProfilePhotoProfile,
-				userProfilePhotoCover, userProfileNationality, null, null);
+				userProfilePhotoCover, userProfileNationality, null, null, null);
 		
 	}
 

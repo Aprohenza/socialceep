@@ -89,96 +89,9 @@
 			<header class="p-2 border-bottom">
 				<span style="font-weight: 600;">Sugerencias para ti</span>
 			</header>
-			<main class="d-flex flex-wrap px-4">
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="assets/img/blank_default_profile.png" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>	
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="assets/img/blank_default_profile.png" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="assets/img/blank_default_profile.png" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="assets/img/blank_default_profile.png" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-			</main>
+			<main id="friends-suggestion" class="d-flex flex-wrap px-4"></main>
 		</div>
+		
 	</section>
 </div>
 <section class="d-none justify-content-center align-items-start pt-4"
@@ -231,6 +144,32 @@ function renderAllFriendRequest(response){
 		})	
 	}else{
 		$('#invitaciones-header').html('No tienes invitaciones de amistad.');
+	}
+	
+}
+
+renderAllFriendsSuggestion();
+
+function renderAllFriendsSuggestion(){
+	//console.log(response);
+	if(sessionStorage.sessionFriendsSuggestion != null){
+		console.log("suggestion es distinto de null");
+		var sessionFriendsSuggestion = JSON.parse(sessionStorage.sessionFriendsSuggestion);
+		
+		if(sessionFriendsSuggestion.length > 0){
+			console.log("suggestion es mayor a 0");
+			sessionFriendsSuggestion.forEach(function(friend){
+				console.log(friend.userProfileName);
+				if(friend.userProfileCycle == null){
+					friend.userProfileCycle = '__';
+				}
+				$('#friends-suggestion').append('<div style="width: 165px;" class="d-block pt-2"><div style="height: 100%;" class="d-flex justify-content-center align-items-center px-2" ><div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%; height: 100%;"><div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div><div class="d-flex justify-content-center" style="z-index: 1;"><div><img src="${pageContext.request.contextPath}/images/'+friend.userProfilePhotoProfile+'" class="rounded-circle" width="72" height="72"></div></div><div class="px-2 d-flex flex-column justify-content-center"><div class="d-flex flex-column justify-content-center"><span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">'+friend.userProfileName+' '+friend.userProfileLastName+'</span><small class="text-center text-muted">'+friend.userProfileRole+'</small></div><div class="d-flex justify-content-center"><small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">'+friend.userProfileCycle+'</small></div></div><div class="d-flex justify-content-center p-2"><button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button></div></div></div></div>');
+			})	
+		}
+		
+		
+	}else{
+		//$('#invitaciones-header').html('No tienes invitaciones de amistad.');
 	}
 	
 }

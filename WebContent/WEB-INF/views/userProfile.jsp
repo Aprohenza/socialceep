@@ -148,7 +148,7 @@
 
 							  	<div style="flex: 1;" class="ml-1">
 							  		<label style="line-height: 0.3;" for="inputEmailProfile">Telefono de contacto</label>
-							    	<input style="box-shadow: none;" type="text" class="form-control rounded-0" id="inputPhoneProfile" aria-describedby="Telefono de contacto" value="${userProfile.userProfilePhone}">
+							    	<input style="box-shadow: none;" type="text" class="form-control rounded-0" name="new-phone-profile" id="inputPhoneProfile" aria-describedby="Telefono de contacto" value="${userProfile.userProfilePhone}">
 							  	</div>
 						  	</div>
 
@@ -505,7 +505,7 @@
 			formData.append("photoProfileCover", $('input[name="new-photo-cover"]')[0].files[0]);
 			formData.append("emailProfile", $('input[name="new-email-profile"]').val());
 			formData.append("profileNationality", $('#country>select>option:selected').text() + '-' + $('#country>select').val());
-			//formData.append("postBody", $('textarea[name="postBody"]', this).val());
+			formData.append("phoneProfile", $('input[name="new-phone-profile"]').val());
 
 			$.ajax({
 				url : '${pageContext.request.contextPath}/profile/update',

@@ -47,6 +47,7 @@ public class SessionProfileUpdate {
 		MultipartFile photoCover = request.getFile("photoProfileCover");
 		String nationality = req.getParameter("profileNationality");
 		String email = req.getParameter("emailProfile");
+		String phone = req.getParameter("phoneProfile");
 		
 		uSession = (UserSession) req.getSession().getAttribute("uSession");
 
@@ -81,6 +82,12 @@ public class SessionProfileUpdate {
 				System.out.println("Cambiando email a: " + email);
 				this.uSession.setUserProfileEmail(email);;
 				userProfileDataChange.setUserProfileEmail(email);
+			}
+			
+			if(phone != null && !email.equals("")) {
+				System.out.println("Cambiando phone a: " + phone);
+				this.uSession.setUserProfilePhone(phone);
+				userProfileDataChange.setUserProfilePhone(phone);
 			}
 			
 			this.updateUserInformationInBD(userProfileDataChange);

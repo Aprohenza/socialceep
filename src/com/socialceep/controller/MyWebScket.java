@@ -75,13 +75,15 @@ public class MyWebScket {
 	}
 
 	public static void sendMessageToClient(Object object, String type, String userSessionId) {
+		System.out.println("ENVIANDO MENSAJE AL CLIENTE");
 
 		String contentType = type;
 
 		Gson gson = new Gson();
 
 		String sessionScketId = users.get(userSessionId);
-
+		
+		System.out.println("PILA DEL SET: " + endpoints.size());
 		endpoints.forEach(endpoint -> {
 			synchronized (endpoint) {
 				if (endpoint.session.getId().equals(sessionScketId)) {
@@ -94,6 +96,8 @@ public class MyWebScket {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+				}else {
+					System.out.println("EL CLIENTE NO SE ENCUENTRA EN EL SET");
 				}
 			}
 		});

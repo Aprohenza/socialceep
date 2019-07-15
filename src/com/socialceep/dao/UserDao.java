@@ -1,5 +1,6 @@
 package com.socialceep.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,8 @@ import javax.persistence.TypedQuery;
 import com.socialceep.dto.UserProfileDto;
 import com.socialceep.entity.ConversationEntity;
 import com.socialceep.entity.UserEntity;
+import com.socialceep.session.UserFriendsSuggestion;
+import com.socialceep.session.UserSession;
 
 public class UserDao implements Runnable {
 
@@ -46,10 +49,67 @@ public class UserDao implements Runnable {
 		return usersMatch;
 
 	}
+	
+	public static List<UserFriendsSuggestion> getFriendsSuggestion(UserSession uSession, Integer userCycle) {
+
+		EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("socialceep");
+		EntityManager entitymanager = emfactory.createEntityManager();
+		
+		//la gente de mi ciclo
+		TypedQuery<UserEntity> query = entitymanager.createNamedQuery("UserEntity.findFriendsSuggestion", UserEntity.class);
+		query.setParameter("userCycle", userCycle);
+		
+		List<UserFriendsSuggestion> usersFriendsSuggestion =  new ArrayList<UserFriendsSuggestion>();
+		
+		for(UserEntity uE: query.getResultList()) {
+			if(!uSession.getUserProfileId().equals(uE.getUserId())) {
+				UserFriendsSuggestion uFriendSuggestion = new UserFriendsSuggestion();
+				uFriendSuggestion.setUserProfileId(uE.getUserId());
+				uFriendSuggestion.setUserProfileName(uE.getUserName());
+				uFriendSuggestion.setUserProfileLastName(uE.getUserLastname());
+				uFriendSuggestion.setUserProfilePhotoProfile(Long.toString(uE.getUserPhotoProfile()));
+				uFriendSuggestion.setUserProfileRole(uE.getUserRole().getRole().getRoleName());
+				uFriendSuggestion.setUserProfileCycle(uE.getCycleCurseSessionEntity().getCycle().getCycleName());
+				usersFriendsSuggestion.add(uFriendSuggestion);
+			}
+			
+		}
+		
+		//other people
+		TypedQuery<UserEntity> q = entitymanager.createNamedQuery("UserEntity.findAll", UserEntity.class);
+		q.setMaxResults(10);
+		
+		for(UserEntity uE: q.getResultList()) {
+			if(!uSession.getUserProfileId().equals(uE.getUserId())) {
+				UserFriendsSuggestion uFriendSuggestion = new UserFriendsSuggestion();
+				uFriendSuggestion.setUserProfileId(uE.getUserId());
+				uFriendSuggestion.setUserProfileName(uE.getUserName());
+				uFriendSuggestion.setUserProfileLastName(uE.getUserLastname());
+				uFriendSuggestion.setUserProfilePhotoProfile(Long.toString(uE.getUserPhotoProfile()));
+				uFriendSuggestion.setUserProfileRole(uE.getUserRole().getRole().getRoleName());
+				
+				if(uE.getCycleCurseSessionEntity()!=null) {
+					uFriendSuggestion.setUserProfileCycle(uE.getCycleCurseSessionEntity().getCycle().getCycleName());
+				}
+				
+				usersFriendsSuggestion.add(uFriendSuggestion);
+			}
+		}
+		
+		
+		
+
+		entitymanager.close();
+		emfactory.close();
+
+		return usersFriendsSuggestion;
+
+	}
 
 	// update user information
 	private void updateUserInformation(UserProfileDto userProfileDataChange) {
 		System.out.println("INIT UPDATE USER INFORMATION.");
+		System.out.println("PHONE: " + userProfileDataChange.getUserProfilePhone());
 
 		entitymanager.getTransaction().begin();
 
@@ -68,6 +128,9 @@ public class UserDao implements Runnable {
 		if (userProfileDataChange.getUserProfileEmail() != null
 				&& !userProfileDataChange.getUserProfileEmail().equals(""))
 			userEntity.setUserEmail(userProfileDataChange.getUserProfileEmail());
+		
+		if(userProfileDataChange.getUserProfilePhone() != null && !userProfileDataChange.getUserProfilePhone().equals(""))
+			userEntity.setUserPhone(userProfileDataChange.getUserProfilePhone());
 
 		entitymanager.getTransaction().commit();
 
@@ -136,7 +199,7 @@ public static void createNewUser(String userId, String userName, String userLast
 		if(userPhotoCover != null && !userPhotoCover.equals(""))
 			uE.setUserPhotoCover(Long.parseLong(userPhotoCover));
 		else
-			uE.setUserPhotoCover(Long.parseLong("1111111111111"));
+			uE.setUserPhotoCover(Long.parseLong("2222222222222"));
 		
 		
 		entitymanager.getTransaction().begin();

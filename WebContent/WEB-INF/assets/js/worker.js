@@ -1,6 +1,6 @@
 function onLoad(userId) {
 	console.log("Loading webscket.");
-	var wsUri = "ws://35.197.217.56:8080/socialceep/endpoint/" + userId;
+	var wsUri = "ws://35.189.107.75:8080/socialceep/endpoint/" + userId;
 	websocket = new WebSocket(wsUri);
 	websocket.onopen = function(e) {
 		onOpen(e)

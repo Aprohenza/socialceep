@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.annotation.JsonFormat.Feature;
 import com.socialceep.controller.MyWebScket;
+import com.socialceep.dao.UserDao;
 import com.socialceep.dto.AttachmentDto;
 import com.socialceep.entity.AttachmentEntity;
 import com.socialceep.entity.FriendEntity;
@@ -29,7 +30,7 @@ public class UserFriendSessionLoad implements Runnable {
 	}
 
 	private List<UserFriendsSession> getUserFriendsSession() {
-
+		System.out.println("RECOGIENDO AMIGOS DE LA SESSION");
 		List<UserFriendsSession> userFriends = new ArrayList<UserFriendsSession>();
 
 		List<PostFromFriendsUserSession> postListFromFriends = new ArrayList<PostFromFriendsUserSession>();
@@ -83,6 +84,15 @@ public class UserFriendSessionLoad implements Runnable {
 
 		MyWebScket.sendMessageToClient(this.uSession.getUserFriendsSession(), "sessionFriends",
 				uSession.getUserProfileId());
+		
+		//sugerencias de amitad
+		List<UserFriendsSuggestion> friendsSuggestion = UserDao.getFriendsSuggestion(uSession, UserDao.getUserById(uSession.getUserProfileId()).getUserCycle());
+		
+		System.out.println("SUGERENCIAS DE AISTAD DE LA SESSION: " + friendsSuggestion);
+		MyWebScket.sendMessageToClient(friendsSuggestion, "sessionFriendsSuggestion",
+				uSession.getUserProfileId());
+		
+		
 
 	}
 

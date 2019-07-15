@@ -75,7 +75,7 @@ public class MainController {
 			SessionManager sManager = new SessionManager();
 			UserSession uSession = sManager.openSession(request, user);
 			
-			if(uSession ==null)
+			if(uSession ==null) 
 				return "waiting-validation";
 				
 			
@@ -128,29 +128,11 @@ public class MainController {
 		UserProfileDto userProfile = new UserProfileDto(userEntity.getUserId(), userEntity.getUserName(),
 				userEntity.getUserLastname(), userEntity.getUserRole().getRole().getRoleName(),
 				Long.toString(userEntity.getUserPhotoProfile()), Long.toString(userEntity.getUserPhotoCover()),
-				userEntity.getUserNationality(), userEntity.getUserEmail(), userProfileCycleName);
+				userEntity.getUserNationality(), userEntity.getUserEmail(), userEntity.getUserPhone(), userProfileCycleName);
 
 		if (!uSession.getUserProfileId().equals(userid)) {
 
 			boolean isMyFriend = false;
-
-		//	EntityManagerFactory emfactory = Persistence.createEntityManagerFactory("FormBeanSpringExample");
-		//	EntityManager entitymanager = emfactory.createEntityManager();
-
-		//	UserEntity userEntity = entitymanager.find(UserEntity.class, userid);
-
-			/*
-			 * if (userEntity == null) { return "profileUnavailable"; }
-			 */
-
-			/*
-			 * UserProfileDto userProfile = new UserProfileDto(userEntity.getUserId(),
-			 * userEntity.getUserName(), userEntity.getUserLastname(),
-			 * userEntity.getUserRole().getRole().getRoleName(),
-			 * Long.toString(userEntity.getUserPhotoProfile()),
-			 * Long.toString(userEntity.getUserPhotoCover()),
-			 * userEntity.getUserNationality(), userEntity.getUserEmail());
-			 */
 
 			// is my friend
 			for (UserFriendsSession uFS : uSession.getUserFriendsSession()) {
@@ -169,6 +151,13 @@ public class MainController {
 		model.addAttribute("isMe", isMe);
 
 		return "userProfile";
+	}
+	
+	@RequestMapping(value = "/notifications", method = RequestMethod.GET)
+	public String notifications(HttpServletRequest request) {
+		//SessionManager sManager = new SessionManager();
+		//sManager.closeUserSession(request);
+		return "notifications";
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)

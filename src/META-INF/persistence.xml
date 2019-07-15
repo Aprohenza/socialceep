@@ -27,7 +27,7 @@
 		
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
-			<property name="javax.persistence.jdbc.url"	value="jdbc:mysql://35.197.217.56:3306/socialceep" />
+			<property name="javax.persistence.jdbc.url"	value="jdbc:mysql://35.189.107.75:3306/socialceep" />
 			<property name="javax.persistence.jdbc.user" value="socialceep" />
 			<property name="javax.persistence.jdbc.password" value="Panoramix91" />
 		</properties>

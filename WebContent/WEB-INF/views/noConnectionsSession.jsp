@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-
+<link rel="icon" type="image/vnd.microsoft.icon" href="${pageContext.request.contextPath}/assets/img/ceep_logo_no_back.ico">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
@@ -63,333 +63,32 @@
 	  			<div class="mn-abi-form__container container-with-shadow" tabindex="-1">
 					<div class="mn-abi-form__content" style="position: relative;">
 	      				<div>
-		<!---->     		<h2 class="" style="font-weight: 200; font-size: 1.6rem;">Averigua a quién conoces en Social Ceep</h2>
+		    				<h2 class="" style="font-weight: 200; font-size: 1.6rem;">Averigua a quién conoces en Social Ceep</h2>
 							<p class="t-16 t-black--light t-normal mb4">Encuentra a tus amigos e invitalos a conectar.</p>
-		              		
-		              		
-
 		              		<label for="email" class="visually-hidden"></label>
 		                	<input  name="search" placeholder="Busqueda" id="search" class="col-12 p-0" type="text">
-							
 						</div>
-			<!---->		<div id="ember2517" class="border d-none col-12 p-0" style="position: absolute; z-index: 2;">
-							
-
-							<a href="">
-								<div class="bg-white border-bottom p-2 contact" style="cursor: pointer;">
-									<div class="d-flex align-items-center justify-content-between  p-2">
-										<div class="d-flex align-items-start">
-											<div>
-												<div><img src="me.jpg" class="rounded-circle" width="36"></div>
-											</div>
-											<div class="px-2">
-												<div class="d-flex flex-column">
-													<span class="fw-600 lh-8">Aldo Prohenza Hernandez</span>
-												</div>
-												<div>
-													<span class="text-muted">Estudiante</span>
-													<span>&middot;</span>
-													<span>Desarrollo de aplicaciones multiplataformas</span>
-												</div>
-											</div>
-										</div>
-									</div>
+						<div id="ember2517" class="border d-none col-12 p-0" style="position: absolute; z-index: 2;">
+							<div class="bg-white border-bottom p-2 contact" style="cursor: pointer;">
+								<div class="d-flex align-items-center justify-content-between  p-2">
+									<div class="d-flex align-items-start">Cargando...</div>
 								</div>
-							</a>
-
-							<a href="">
-								<div class="bg-white border-bottom p-2 contact" style="cursor: pointer;">
-									<div class="d-flex align-items-center justify-content-between  p-2">
-										<div class="d-flex align-items-start">
-											<div>
-												<div><img src="me.jpg" class="rounded-circle" width="36"></div>
-											</div>
-											<div class="px-2">
-												<div class="d-flex flex-column">
-													<span class="fw-600 lh-8">Aldo Prohenza Hernandez</span>
-												</div>
-												<div>
-													<span class="text-muted">Estudiante</span>
-													<span>&middot;</span>
-													<span>Desarrollo de aplicaciones multiplataformas</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</a>
-
+							</div>
 						</div>
+				
 						<div class="mn-abi-form__graphic"></div>
 	    			</div>
-	<!----> 	</div>
+	 			</div>
 			</div>
 		</section>
 
 		<section class="border mt-2 bg-white">
+			
 			<header class="p-2 border-bottom">
 				<span style="font-weight: 600;">Gente que podrias conocer</span>
 			</header>
-			<main class="d-flex flex-wrap px-4">
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>	
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-				
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-				<div style="width: 165px;" class="d-block pt-2">
-					<div class="d-flex justify-content-center align-items-center px-2" >						
-						<div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%;">
-							<div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div>
-							<div class="d-flex justify-content-center" style="z-index: 1;">
-								<div><img src="me.jpg" class="rounded-circle" width="72"></div>
-							</div>
-							<div class="px-2 d-flex flex-column justify-content-center">
-								<div class="d-flex flex-column justify-content-center">
-									<span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">Aldo Prohenza Hernandez</span><small class="text-center text-muted">Estudiante</small>
-								</div>
-								<div class="d-flex justify-content-center">
-									<small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">Desarrollo de aplicaciones multiplataformas</small>
-								</div>
-							</div>
-							<div class="d-flex justify-content-center p-2">
-								<button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button>
-							</div>
-						</div>
-					</div>	
-				</div>
-				
-			</main>
+			<main id="friends-suggestion" class="d-flex flex-wrap px-4"></main>
+			
 		</section>
 	</section>
 
@@ -431,6 +130,32 @@
 	$('#ember2517').click(function(e){
 		e.stopPropagation();
 	})
+	
+	renderAllFriendsSuggestion();
+
+function renderAllFriendsSuggestion(){
+	//console.log(response);
+	if(sessionStorage.sessionFriendsSuggestion != null){
+		console.log("suggestion es distinto de null");
+		var sessionFriendsSuggestion = JSON.parse(sessionStorage.sessionFriendsSuggestion);
+		
+		if(sessionFriendsSuggestion.length > 0){
+			console.log("suggestion es mayor a 0");
+			sessionFriendsSuggestion.forEach(function(friend){
+				console.log(friend.userProfileName);
+				if(friend.userProfileCycle == null){
+					friend.userProfileCycle = '__';
+				}
+				$('#friends-suggestion').append('<div style="width: 165px;" class="d-block pt-2"><div style="height: 100%;" class="d-flex justify-content-center align-items-center px-2" ><div class="d-flex flex-column justify-content-center border pt-4" style="position: relative; width: 100%; height: 100%;"><div class="bg-info" style="height: 60px; position: absolute; top: 0; width: 100%"></div><div class="d-flex justify-content-center" style="z-index: 1;"><div><img src="${pageContext.request.contextPath}/images/'+friend.userProfilePhotoProfile+'" class="rounded-circle" width="72" height="72"></div></div><div class="px-2 d-flex flex-column justify-content-center"><div class="d-flex flex-column justify-content-center"><span style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center">'+friend.userProfileName+' '+friend.userProfileLastName+'</span><small class="text-center text-muted">'+friend.userProfileRole+'</small></div><div class="d-flex justify-content-center"><small style="overflow-x: hidden; text-overflow: ellipsis; white-space: nowrap;" class="text-center text-muted py-1">'+friend.userProfileCycle+'</small></div></div><div class="d-flex justify-content-center p-2"><button class="btn-ceep btn-sm rounded-0" style="flex: 1;">Conectar</button></div></div></div></div>');
+			})	
+		}
+		
+		
+	}else{
+		//$('#invitaciones-header').html('No tienes invitaciones de amistad.');
+	}
+	
+}
 		
 </script>
 

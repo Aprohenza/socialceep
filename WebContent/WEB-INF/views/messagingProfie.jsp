@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%-- <%@ page language="java" contentType="text/html"%> --%>
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
@@ -39,6 +39,30 @@ body {
 .thread-selected {
 	border-left: 2px solid #202c5a;
 }
+
+ .emoji-span{
+
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    .emoji-span:hover{
+    -webkit-transform: scale(1.5); /* Safari 3-8 */
+     -moz-transform: scale(1.5); 
+    transform: scale(1.5);
+      cursor: pointer;
+    }
+
+    .emoji-box{
+      width: 30px;
+      height: 30px;
+      margin: 2.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+   
 </style>
 </head>
 <body>
@@ -118,7 +142,7 @@ body {
 				</c:otherwise>				
 				</c:choose>
 		
-			<section id="story"	class="bg-white border-bottom py-2  justify-content-center align-items-center" style="height: 290px; overflow: auto;">
+			<section id="story"	class="bg-white border-bottom py-2  justify-content-center align-items-center" style="flex: 1; overflow: auto;">
 
 				<c:forEach var="messages" items="${messages}">
 					<div class="message-container d-flex flex-column pb-4">
@@ -207,7 +231,7 @@ body {
 			</section> 
 
 				<form name="message" class="d-flex flex-column" style="flex: 1;">
-					<section class="bg-warning p-0" style="min-height: 100px;">
+					<section class="bg-warning p-0" style="min-height: 100px; flex: 1;">
 						<textarea name="messageBody" class="col-12 p-2 m-0"
 							style="resize: none; box-shadow: none; outline: none; height: 100%; border-top: 2px solid #202c5a; border-left: 0; border-right: 0; border-bottom: 0;"
 							placeholder="Escribe un mensaje o adjunta un archivo"
@@ -218,10 +242,180 @@ body {
 						<!-- <img src="assets/img/blank_default_profile.png"> -->
 					</div>
 					<section style="background: #f3f6f8; flex: 1; min-height: 50px;" class="col-12 p-3 d-flex justify-content-between align-items-center" id="botones">
-						<div>
+						<div style="position: relative" class="d-flex">
 							<i id="upload-image-message" class="far fa-image fa-lg mr-2 cursor-pointer"></i>
 							<input type="file" name="image" accept="image/*" style="display: none;">
-							<i class="far fa-smile fa-lg mr-2 cursor-pointer"></i>
+							<i class="emoji-popup far fa-smile fa-lg mr-2 cursor-pointer"></i>
+							
+							<section  class="emoji-popover__emojis border bg-white d-none" style="width: 320px; height: 420px; overflow-y: scroll; position: absolute; bottom: 30px; z-index: 1;">
+							
+							    	<section id="emojis-section-people" class="emoji-popover__emojis-section d-flex flex-wrap justify-content-center align-items-center">
+							       
+							      		<div class="emoji-box"><span class="emoji-span relative" >😀</span></div> <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo">😀</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara radiante con ojos sonrientes">😁</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara llorando de risa">😂</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara revolviéndose de la risa">🤣</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con ojos grandes">😃</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con ojos sonrientes">😄</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con sudor frío">😅</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con los ojos cerrados">😆</span></div>
+
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara guiñando el ojo">😉</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara feliz con ojos sonrientes">😊</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara saboreando comida">😋</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con gafas de sol">😎</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con ojos de corazón">😍</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara lanzando un beso">😘</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara">😗</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara besando con ojos sonrientes">😙</span></div>
+
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara besando con ojos cerrados">😚</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo ligeramente">🙂</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con manos abrazando">🤗</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con estrellas">🤩</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara pensativa">🤔</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con ceja alzada">🤨</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara neutral">😐</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sin expresión">😑</span></div>
+
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sin boca">😶</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con ojos en blanco">🙄</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con superioridad">😏</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara desesperada">😣</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara triste pero aliviada">😥</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con la boca abierta">😮</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con la boca cerrada con cremallera">🤐</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara estupefacta">😯</span></div>
+
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de sueño">😪</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara cansada">😫</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara durmiendo">😴</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de alivio">😌</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sacando la lengua">😛</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sacando la lengua y guiñando un ojo">😜</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con ojos cerrados y lengua fuera">😝</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara babeando">🤤</span></div>
+
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de desaprobación">😒</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con sudor frío">😓</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara desanimada">😔</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de confusión">😕</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara al revés">🙃</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con lengua de dinero">🤑</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara asombrada">😲</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con el ceño ligeramente fruncido">🙁</span></div>
+
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de frustración">😖</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara decepcionada">😞</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara preocupada">😟</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara resoplando">😤</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara llorando">😢</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara llorando fuerte">😭</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con el ceño fruncido y la boca abierta">😦</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara angustiada">😧</span></div>
+
+
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara asustada">😨</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara agotada">😩</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cabeza explotando">🤯</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara haciendo una mueca">😬</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con ansiedad y sudor">😰</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara gritando de miedo">😱</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonrojada">😳</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de loco">🤪</span></div>
+  
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara mareada">😵</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara cabreada">😡</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara enfadada">😠</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con símbolos en la boca">🤬</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con mascarilla médica">😷</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con termómetro">🤒</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con la cabeza vendada">🤕</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de náuseas">🤢</span></div>
+  
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara vomitando">🤮</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara estornudando">🤧</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con aureola">😇</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con sombrero de vaquero">🤠</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de mentiroso">🤥</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara pidiendo silencio">🤫</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con mano sobre la boca">🤭</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara con monóculo">🧐</span></div>
+  
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de empollón">🤓</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara sonriendo con cuernos">😈</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara enfadada con cuernos">👿</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de payaso">🤡</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="demonio japonés oni">👹</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="demonio japonés tengu">👺</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="calavera">💀</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="calavera y huesos cruzados">☠</span></div>
+  
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="fantasma">👻</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="alienígena">👽</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="monstruo alienígena">👾</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de robot">🤖</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="caca con ojos">💩</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato sonriendo">😺</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato sonriendo con ojos sonrientes">😸</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato llorando de risa">😹</span></div>
+  
+ 
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato sonriendo y ojos de corazón">😻</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato con sonrisa irónica">😼</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato besando">😽</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato asustado">🙀</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato llorando">😿</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="cara de gato enfadado">😾</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="mono con los ojos tapados">🙈</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="mono con los oídos tapados">🙉</span></div>
+        <div class="emoji-box"><span class="emoji-span relative" arial-label="mono con la boca tapada">🙊</span></div>
+     
+ 
+   
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="selfi">🤳</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="bíceps flexionado">💪</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="dorso de mano con índice a la izquierda">👈</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="dorso de mano con índice a la derecha">👉</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="dedo índice hacia arriba">☝</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="dorso de mano con índice hacia arriba">👆</span></div>
+  
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="dedo corazón hacia arriba">🖕</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="dorso de mano con índice hacia abajo">👇</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="mano con señal de victoria">✌</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="dedos cruzados">🤞</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="saludo vulcano">🖖</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="mano haciendo el signo de cuernos">🤘</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="mano haciendo el gesto de llamar">🤙</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="mano abierta">🖐</span></div>
+ 
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="mano levantada">✋</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="señal de aprobación con la mano">👌</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="pulgar hacia arriba">👍</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="pulgar hacia abajo">👎</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="puño en alto">✊</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="puño cerrado">👊</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="puño hacia la izquierda">🤛</span></div>
+      <div class="emoji-box"><span class="emoji-span relative" arial-label="puño hacia la derecha">🤜</span></div>
+							      
+							   
+    
+  
+    								</section>
+
+									
+							</section>
 						</div>
 						<div>
 							<input type="hidden" name="messageThread" value="${messageThread}" />
@@ -237,51 +431,34 @@ body {
 <script type="text/javascript">
 	$(document).ready(function() {
 		
-		$('#box-message').keyup(function() {
-			
-			content = $(this).val();
-			if (content != '') {
-				$('#send-new-message').removeAttr('disabled');
-			} else {
-				$('#send-new-message').attr('disabled', true);
-			}
+		//init unlock button send messsage
+		$('#box-message').keyup(function() {			
+			checkCMessage();
+		})//end unlock button send messsage
+
+		//open upload image message
+		$('#upload-image-message').click(function() {
+			$('input[name=image]').trigger('click');
 		})
 
-						//upload image message
-						$('#upload-image-message').click(function() {
-							$('input[name=image]').trigger('click');
-						})
+		//init preview load image message
+		$('input[name=image]').change(function(e) {
 
-						//preview load image message
-						$('input[name=image]')
-								.change(
-										function(e) {
+			var reader = new FileReader();
+			reader.readAsDataURL(e.target.files[0]);
 
-											var reader = new FileReader();
-											reader
-													.readAsDataURL(e.target.files[0]);
+			reader.onload = function() {
+				$('#show-preview').html('<div class="col-12 p-0" style="background-image: url(\''+ reader.result + '\'); height: 275px; background-size: contain; background-position: center; background-repeat: no-repeat;"><span id="close-preview" style="font-size: 32px; display: contents; cursor: pointer;" aria-hidden="true">&times;</span></div>');
+				checkCMessage();
+			}
+		})//end preview load image message
 
-											reader.onload = function() {
-												$('#show-preview')
-														.html(
-																'<div class="col-12 p-0" style="background-image: url(\''
-																		+ reader.result
-																		+ '\'); height: 275px; background-size: contain; background-position: center; background-repeat: no-repeat;"><span id="close-preview" style="font-size: 32px; display: contents; cursor: pointer;" aria-hidden="true">&times;</span></div>');
-												$('#send-new-message')
-														.removeAttr('disabled');
-											}
-										})
+		$('#show-preview').on('click', '#close-preview', function() {
+			$('input[name=image]').val('');
+			$('#show-preview').html('');
+			checkCMessage();
 
-						$('#show-preview').on(
-								'click',
-								'#close-preview',
-								function() {
-									$('input[name=image]').val('');
-									$('#show-preview').html('');
-									$('#send-new-message').attr('disabled',
-											true);
-
-								})
+		})
 
 						
 
@@ -315,18 +492,24 @@ body {
 						$('#lookfor-friend-to-send-message').keyup(function(){
 							var pattern = $(this).val();
 							if(pattern && pattern.length >= 4){
-								JSON.parse(sessionStorage.sessionFriends).forEach(function(friend){
-									console.log(friend.userProfileName);
-									if(friend.userProfileName.toUpperCase().includes(pattern.toUpperCase()) || friend.userProfileLastName.toUpperCase().includes(pattern.toUpperCase())){
-										$('#friends-match-to-send-message').removeClass('d-none');
-										$('#friends-match-to-send-message').removeClass('border-bottom');
-										$('#friends-match-to-send-message').html('<div contactid="'+friend.userProfileId+'" class="bg-white border-bottom p-2 contact-to-send-message" style="cursor: pointer;"><div class="d-flex align-items-center justify-content-between  p-2"><div class="d-flex align-items-center"><div><div><img src="${pageContext.request.contextPath}/images/'+friend.userProfilePhotoProfile+'" class="rounded-circle" width="36"></div></div><div class="px-2"><div><span class="fw-600 lh-8">'+friend.userProfileName+' '+friend.userProfileLastName+'</span><span class="px-2">&middot;</span><span class="text-muted">'+friend.userProfileRole+'</span></div><div><span>Desarrollo de aplicaciones multiplataformas</span></div></div></div></div></div>');		
-									}else{
-										$('#friends-match-to-send-message').html('<span>No hay contactos con ese nombre</span>');
-										$('#friends-match-to-send-message').removeClass('d-none');
-										$('#friends-match-to-send-message').addClass('border-bottom');
-									}
-								})
+								if(sessionStorage.sessionFriends != null && JSON.parse(sessionStorage.sessionFriends).length > 0 ){
+									JSON.parse(sessionStorage.sessionFriends).forEach(function(friend){
+										console.log(friend.userProfileName);
+										if(friend.userProfileName.toUpperCase().includes(pattern.toUpperCase()) || friend.userProfileLastName.toUpperCase().includes(pattern.toUpperCase())){
+											$('#friends-match-to-send-message').removeClass('d-none');
+											$('#friends-match-to-send-message').removeClass('border-bottom');
+											$('#friends-match-to-send-message').html('<div contactid="'+friend.userProfileId+'" class="bg-white border-bottom p-2 contact-to-send-message" style="cursor: pointer;"><div class="d-flex align-items-center justify-content-between  p-2"><div class="d-flex align-items-center"><div><div><img src="${pageContext.request.contextPath}/images/'+friend.userProfilePhotoProfile+'" class="rounded-circle" width="36"></div></div><div class="px-2"><div><span class="fw-600 lh-8">'+friend.userProfileName+' '+friend.userProfileLastName+'</span><span class="px-2">&middot;</span><span class="text-muted">'+friend.userProfileRole+'</span></div><div><span>Desarrollo de aplicaciones multiplataformas</span></div></div></div></div></div>');		
+										}else{
+											$('#friends-match-to-send-message').html('<span>No hay contactos con ese nombre</span>');
+											$('#friends-match-to-send-message').removeClass('d-none');
+											$('#friends-match-to-send-message').addClass('border-bottom');
+										}
+									})
+								}else{
+									$('#friends-match-to-send-message').html('<span>Aun no tienes contactos</span>');
+									$('#friends-match-to-send-message').removeClass('d-none');
+								}
+								
 								
 							}else{
 								$('#friends-match-to-send-message').html('<span>No hay contactos con ese nombre</span>');
@@ -352,6 +535,44 @@ body {
 							})
 							
 						})
+						
+						
+						//init emojis
+						$('.emoji-popup').click(function(e){
+							e.stopPropagation();
+							$('.emoji-popover__emojis').removeClass('d-none');
+						})
+						
+						$('body').click(function(){
+							$('.emoji-popover__emojis').addClass('d-none');
+						})
+						
+						$('.emoji-popover__emojis').click(function(e){
+							e.stopPropagation();
+						})
+						
+						$('.emoji-span').click(function(e){
+							var cMessage = $('#box-message').val();
+							$('#box-message').val(cMessage + $(this).html());
+							checkCMessage();
+						})// end emojis
+						
+						//init check message content
+						function checkCMessage(){
+							var cMessage 		= $('#box-message').val();
+							var mThread 		= $('input[name="messageThread"]').val();
+							var mRecipient 		= $('input[name="messageRecipient"]').val();
+							var attchMessage 	= $('input[name=image]')[0].files[0];
+							console.log(cMessage);
+							if (cMessage != '' && (mThread!=null && mThread!='' || mRecipient!=null && mRecipient!='') ||  attchMessage != null && (mThread!=null && mThread!='' || mRecipient!=null && mRecipient!='')) {								
+								$('#send-new-message').removeAttr('disabled');
+							} else {
+								$('#send-new-message').attr('disabled', true);
+							}
+						}//end check message content
+						
+						
+						
 						
 						
 						

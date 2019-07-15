@@ -15,7 +15,7 @@ public class UserFriendsRequestSession extends UserProfileDto{
 			String userProfileRole, String userProfilePhotoProfile, String userProfilePhotoCover,
 			String userProfileNationality) {
 		super(userProfileId, userProfileName, userProfileLastName, userProfileRole, userProfilePhotoProfile,
-				userProfilePhotoCover, userProfileNationality, null, null);
+				userProfilePhotoCover, userProfileNationality, null, null, null);
 		
 	}
 
