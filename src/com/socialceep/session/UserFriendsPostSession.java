@@ -21,9 +21,9 @@ public class UserFriendsPostSession extends PostDto {
 	 * @param postBody
 	 * @param postAuthorPhoto
 	 */
-	public UserFriendsPostSession(Long postId, String postAuthorId, String postAuthorName, String postAuthorRole,
+	public UserFriendsPostSession(Long postId, String postAuthorId, String postAuthorName, String postAuthorRole, String postAuthorCycle,
 			String postDate, String postBody, String postAuthorPhoto) {
-		super(postId, postAuthorId, postAuthorName, postAuthorRole, postDate, postBody, postAuthorPhoto);
+		super(postId, postAuthorId, postAuthorName, postAuthorRole, postAuthorCycle, postDate, postBody, postAuthorPhoto);
 	}
 	
 	

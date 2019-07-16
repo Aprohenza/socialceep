@@ -85,6 +85,10 @@ public class PostToFeedUserSessionLoad implements Runnable {
 			post.setPostAuthorId(pE.getPostAuthor().getUserId());
 			post.setPostAuthorName(pE.getPostAuthor().getUserName() + " " + pE.getPostAuthor().getUserLastname());
 			post.setPostAuthorRole(pE.getPostAuthor().getUserRole().getRole().getRoleName());
+			if(pE.getPostAuthor().getCycleCurseSessionEntity() != null)
+				post.setPostAuthorCycle(pE.getPostAuthor().getCycleCurseSessionEntity().getCycle().getCycleName());
+			else
+				post.setPostAuthorCycle("");
 			post.setPostBody(pE.getPostBody());
 			post.setPostDate(DATE_FORMAT.format(new Date()));
 			post.setPostAuthorPhoto(Long.toString(pE.getPostAuthor().getUserPhotoProfile()));

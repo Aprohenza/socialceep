@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.socialceep.dto.CommentPostDto;
 import com.socialceep.entity.PostCommentEntity;
 import com.socialceep.session.UserSession;
 
@@ -26,7 +27,7 @@ public class PostCommentController {
 	private UserSession uSession;
 	
 	@RequestMapping(value = "/comment/new", method = RequestMethod.POST)
-	public ResponseEntity<Void> createNewCommentOnPost(@RequestParam("postId") Long postId, @RequestParam("comment") String comment, ModelMap model, HttpServletRequest request) {
+	public ResponseEntity<CommentPostDto> createNewCommentOnPost(@RequestParam("postId") Long postId, @RequestParam("comment") String comment, ModelMap model, HttpServletRequest request) {
 		
 		//Long time = System.currentTimeMillis();
 		
@@ -54,9 +55,13 @@ public class PostCommentController {
 		entitymanager.close();
 		emfactory.close();
 		
+		CommentPostDto commentPost = new CommentPostDto(comment, postId, uSession.getUserProfileId(), uSession.getUserProfileName(), uSession.getUserProfileLastName(), Long.parseLong(uSession.getUserProfilePhotoProfile()), uSession.getUserProfileRole());
+		
+		
+		
 		 
 		
-		return new ResponseEntity<>(HttpStatus.OK);
+		return new ResponseEntity<CommentPostDto>(commentPost, HttpStatus.OK);
 	}
 	
 }

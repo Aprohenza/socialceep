@@ -9,9 +9,9 @@ public class PostToFeedUserSession extends PostDto {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PostToFeedUserSession(Long postId, String postAuthorId, String postAuthorName, String postAuthorRole,
+	public PostToFeedUserSession(Long postId, String postAuthorId, String postAuthorName, String postAuthorRole, String postAuthorCycle,
 			String postDate, String postBody, String postAuthorPhoto) {
-		super(postId, postAuthorId, postAuthorName, postAuthorRole, postDate, postBody, postAuthorPhoto);
+		super(postId, postAuthorId, postAuthorName, postAuthorRole, postAuthorCycle, postDate, postBody, postAuthorPhoto);
 		// TODO Auto-generated constructor stub
 	}
 	

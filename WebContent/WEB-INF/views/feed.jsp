@@ -262,24 +262,45 @@
 							});
 						})
 
-						//open box to comment and show comments
+						//init open box to comment and show comments
 						$('#posts-container').on('click', '.reaction-new-comment', function() {
 							//console.log($(this).parents());
-							$('.comments-container', $(this).parents()[2]).show();
-							var postId = $('.comments-container .new-comment-container .post-new-comment', $(this).parents()[2]).attr('value')
-							//console.log("valor del post: " +  postId);
+							var target = $(this);
 							
-							$('.comments-container .comments', $(this).parents()[2]).html(function(){
+							displayPostComments(target);
+							
+							renderizeCommentsPost(target);
+						})//end open box to comment and show comments
+						
+						$('#display-comments').click(function(){
+							var target = $(this);
+							displayPostComments(target);
+							
+							renderizeCommentsPost(target);
+						})
+						
+						function displayPostComments(target){
+							$('.comments-container', target.parents()[2]).show();
+						}
+						
+						function renderizeCommentsPost(target){
+							var postId = $('.comments-container .new-comment-container .post-new-comment', target.parents()[2]).attr('value')
+							console.log("valor del post: " +  postId);
+							$('.comments-container .comments', target.parents()[2]).html(function(){
 								var html = "";
 								
 								JSON.parse(sessionStorage.posts).forEach(function(post){
 									
 									if(post.postId == postId){
 										console.log("match");
-										post.commentstPostDto.forEach(function(comment){
+										if(post.commentPostDto!=null && post.commentPostDto.length>0){
+											post.commentPostDto.forEach(function(comment){
+												
+												html = html + '<div class="comment-container d-flex bg-white py-2"><div><img class="rounded-circle" src="${pageContext.request.contextPath}/images/'+comment.commentAuthorPhotoProfile+'" width="40"></div><div style="flex: 1;" class="px-2"><div style="background-color: #f3f6f8; border-radius: 0 20px 20px 20px;" class="p-2"><div style="font-weight: 600;"><span>'+comment.commentAuthorName+' '+comment.commentAuthorLastName+'</span><small class="px-1">&middot;</small><small>'+comment.commentAuthorRole+'</small></div><div class="pt-2">'+ comment.commentBody +'</div></div></div></div>';	
+											})
+										}
 										
-											html = html + '<div class="comment-container d-flex bg-white py-2"><div><img class="rounded-circle" src="${pageContext.request.contextPath}/images/'+comment.commentAuthorPhotoProfile+'" width="40"></div><div style="flex: 1;" class="px-2"><div style="background-color: #f3f6f8; border-radius: 0 20px 20px 20px;" class="p-2"><div style="font-weight: 600;"><span>'+comment.commentAuthorName+' '+comment.commentAuthorLastName+'</span><small class="px-1">&middot;</small><small>'+comment.commentAuthorRole+'</small><div><small style="line-height: 0.9;">Desarollo de aplicaciones multiplataformas</small></div></div><div class="pt-2">'+ comment.commentBody +'</div></div></div></div>';	
-										})
+										
 										
 									}
 									
@@ -287,7 +308,9 @@
 								return html;
 								
 							})
-						})
+							
+							$('.input-new-comment', target.parents()[0]).html('');
+						}
 
 						// mostrar boton publicar nuevo post
 						$('#posts-container')
@@ -324,25 +347,37 @@
 											}
 										})
 
-						// insert new comment's post
+						//init insert new comment's post
 						$('#posts-container').on('click', '.post-new-comment', function() {
 							//alert('post: ' + $(this).attr('value') + '\n' + $('.input-new-comment', $(this).parents()[0]).html()  );
-
+							var target = $(this);
 							$.ajax({
 								type : 'POST',
-								data : {'postId': $(this).attr('value'), 'comment' : $('.input-new-comment', $(this).parents()[0]).html()},
+								data : {'postId': target.attr('value'), 'comment' : $('.input-new-comment', target.parents()[0]).html()},
 								url : '${pageContext.request.contextPath}/comment/new',
 								success : function(response) {
 									if (response != null) {
-										alert('OK')
+										console.log(response);
+										var posts = JSON.parse(sessionStorage.posts);
+										posts.forEach(function(post){
+											if(post.postId == response.commentPostId){
+												post.commentPostDto.push(response);
+												sessionStorage.setItem("posts", JSON.stringify(posts));
+												renderizeCommentsPost(target);
+												
+											}
+										})
+										
+										
 									}
+									
 								},
 								error : function(jqXHR, textStatus, errorThrown) {
-															console.log(jqXHR.status, textStatus, errorThrown);
+									console.log(jqXHR.status, textStatus, errorThrown);
 								}
 							});
 
-						})
+						})//end insert new comment's post
 						
 
 					})//ready
@@ -405,7 +440,7 @@
 					if (post.postAttachment != null) {
 						if (post.postAttachment.attachmentPath == 'files') {
 							extension = post.postAttachment.attachmentName.split('.').pop() + '.svg';
-							$('#posts-container').append('<jsp:include page="../views/tiles/post_item_with_files.jsp" />');
+							$('#posts-container').append('<jsp:include page="../views/tiles/post_item_with_files.jsp" />');							
 						} else {
 							$('#posts-container').append('<jsp:include page="../views/tiles/post_item.jsp" />');
 						}
@@ -443,37 +478,49 @@
 	
 	
 	$('.give-like').click(function(){
-		$(this).addClass("text-primary");
+		var target = $(this);
+		target.addClass("text-primary");
 		var target_post = $(this).attr('post');
 		var count;
 		console.log(target_post);
-		$.ajax({
-			type: 'POST',
-			data: {"postId": $(this).attr('post')},
-			url: '${pageContext.request.contextPath}/post/action/like',
-			success: function(respuesta) {
-				console.log('like');
+		
+		console.log('like');
 				//update like in local storage
 				var posts = JSON.parse(sessionStorage.posts);
 				posts.forEach(function(post){
-					if(post.postId == target_post){
+					if(post.postId == target_post && post.iLiked!=true){
 						//console.log("true");						
 						count = post.postLike;
 						count = count + 1;
 						post.postLike = count;
-						sessionStorage.setItem("posts", JSON.stringify(posts)); 
+						post.iLiked = true;
+						sessionStorage.setItem("posts", JSON.stringify(posts));
+						renderPostLike(target, count);
+						console.log('target: ' + target);
+						//persistir en bd
+						$.ajax({
+							type: 'POST',
+							data: {"postId": target.attr('post')},
+							url: '${pageContext.request.contextPath}/post/action/like',
+							success: function(respuesta) {},
+							error: function(jqXHR, textStatus, errorThrown) {
+								console.log(jqXHR.status, textStatus, errorThrown);
+							}
+							
+						})
+											
 					}
-				})
-				
-				//render like				
-				$('.likes-count', $(this).parents()[2] ).html(" " + count + " ");				
-			},
-			error: function(jqXHR, textStatus, errorThrown) {
-		       console.log(jqXHR.status, textStatus, errorThrown);
-		   }
-		})
+				})//foreach
+		
+		
 		
 	})
+	
+	function renderPostLike(target, likes){
+		//render like				
+		$('.likes-count', target.parents()[2] ).html(" " + likes + " ");	
+		
+	}
 	
 
 	

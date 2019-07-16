@@ -69,11 +69,14 @@ public class UserRegistrationRequestNonReferrerController {
 				userRegistration.getUserPasswordRegistration(), userRegistration.getUserGenderRegistration());
 
 		try {
-			MailManager.enviarConGMail("aprohenza@gmail.com", "Confirmacion de registro", "<h2>Hola "
+			MailManager.enviarConGMail(userRegistration.getUserEmailRegistration(), "Confirmacion de registro", "<h2>Hola "
 					+ userRegistration.getUserNameRegistration()
-					+ ", gracias por registrarte en Social Ceep.</h2><h3>Para confirmar tu cuenta haz clic en el siguiente enlace:</h3><a href=\"http://35.197.217.56:8080/socialceep/onboarding?token="
+					+ ", gracias por registrarte en Social Ceep.</h2><h3>Para confirmar tu cuenta haz clic en el siguiente enlace:</h3><a href=\"http://35.189.107.75:8080/socialceep/onboarding?token="
 					+ token
 					+ "\">Confirmar mi cuenta</a><h3>esperamos verte pronto.</h3></h5>The Social Ceep Team</h5>");
+			
+			//envio de notificacion de nuevo registro
+			MailManager.enviarConGMail("aprohenza@gmail.com", "Nuevo registro de usuario", "Nuevo usuario: " + userRegistration.getUserNameRegistration() + " " + userRegistration.getUserLastNameRegistration());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return new ModelAndView("redirect:register/failed");

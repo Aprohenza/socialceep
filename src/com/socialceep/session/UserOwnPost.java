@@ -32,9 +32,9 @@ public class UserOwnPost extends PostDto {
 	 * @param postBody
 	 * @param postAuthorPhoto
 	 */
-	public UserOwnPost(Long postId, String postAuthorId, String postAuthorName, String postAuthorRole,
+	public UserOwnPost(Long postId, String postAuthorId, String postAuthorName, String postAuthorRole, String postAuthorCycle,
 			String postDate, String postBody, String postAuthorPhoto) {
-		super(postId, postAuthorId, postAuthorName, postAuthorRole, postDate, postBody, postAuthorPhoto);
+		super(postId, postAuthorId, postAuthorName, postAuthorRole, postAuthorCycle, postDate, postBody, postAuthorPhoto);
 	}
 
 }

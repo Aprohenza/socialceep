@@ -11,7 +11,7 @@ import javax.mail.internet.MimeMessage;
 
 public class MailManager {
 
-	public static void enviarConGMail(String destinatario, String asunto, String cuerpo) throws MessagingException {
+	public synchronized static void enviarConGMail(String destinatario, String asunto, String cuerpo) throws MessagingException {
 		// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el
 		// remitente tambi�n.
 

@@ -23,11 +23,25 @@ public class CommentPostDto {
 	private Long commentAuthorPhotoProfile;
 	
 	private String commentAuthorRole;
+	
+	public CommentPostDto(String commentBody, Long commentPostId,
+			String commentAuthorId, String commentAuthorName, String commentAuthorLastName,
+			Long commentAuthorPhotoProfile, String commentAuthorRole) {
+		
+		this.commentBody = commentBody;		
+		this.commentPostId = commentPostId;
+		this.commentAuthorId = commentAuthorId;
+		this.commentAuthorName = commentAuthorName;
+		this.commentAuthorLastName = commentAuthorLastName;
+		this.commentAuthorPhotoProfile = commentAuthorPhotoProfile;
+		this.commentAuthorRole = commentAuthorRole;
+		
+	}
 
 	public CommentPostDto(String commentBody, int commentId, Long commentDate, Long commentPostId,
 			String commentAuthorId, String commentAuthorName, String commentAuthorLastName,
 			Long commentAuthorPhotoProfile, String commentAuthorRole) {
-		super();
+		
 		this.commentBody = commentBody;
 		this.commentId = commentId;
 		this.commentDate = commentDate;

@@ -14,6 +14,8 @@ public class PostDto {
 	
 	private String postAuthorRole;
 	
+	private String postAuthorCycle;	
+
 	private String postAuthorPhoto;	
 
 	private String postDate;
@@ -71,6 +73,14 @@ public class PostDto {
 	public void setPostComments(List<PostCommentEntity> postComments) {
 		this.postComments = postComments;
 	}
+	
+	public String getPostAuthorCycle() {
+		return postAuthorCycle;
+	}
+
+	public void setPostAuthorCycle(String postAuthorCycle) {
+		this.postAuthorCycle = postAuthorCycle;
+	}
 
 	/**
 	 * 
@@ -84,11 +94,12 @@ public class PostDto {
 	 * @param postDate
 	 * @param postBody
 	 */
-	public PostDto(Long postId, String postAuthorId, String postAuthorName, String postAuthorRole, String postDate, String postBody, String postAuthorPhoto) {
+	public PostDto(Long postId, String postAuthorId, String postAuthorName, String postAuthorRole, String postAuthorCycle, String postDate, String postBody, String postAuthorPhoto) {
 		this.postId = postId;
 		this.postAuthorId = postAuthorId;
 		this.postAuthorName = postAuthorName;
 		this.postAuthorRole = postAuthorRole;
+		this.postAuthorCycle = postAuthorCycle;
 		this.postDate = postDate;
 		this.postBody = postBody;
 		this.postAuthorPhoto = postAuthorPhoto;
